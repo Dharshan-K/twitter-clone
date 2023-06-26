@@ -1,6 +1,6 @@
 /** @format */
 
-// const {Pool}= require("pg");
+import mongoose from "mongoose";
 import { Pool } from "pg";
 require("dotenv").config();
 
@@ -10,3 +10,16 @@ export const itemsPool = new Pool({
     rejectUnauthorized: false,
   },
 });
+
+export const connectMongo = async () => {
+  const MONGODB_URL = process.env.MONGODB_URL || "";
+  console.log("runnning connectMongo");
+  try {
+    mongoose.set("strictQuery", false);
+    const connection = await mongoose.connect(MONGODB_URL);
+    console.log(MONGODB_URL);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
