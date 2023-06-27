@@ -1,16 +1,23 @@
 /** @format */
 
-type User = {
+import { JwtPayload } from "jsonwebtoken";
+
+export type User = {
   userID: string;
   userName: string;
   email: string;
   DOB: Date;
   passwordHash: string;
-  authenticationHash: string;
   AccessLevel: AccessLevel;
 };
 
-type Tweet = {
+export type UserBearer = {
+  userID: string;
+  email: string;
+  AccessLevel: AccessLevel;
+};
+
+export type Tweet = {
   content: string;
   tweetID: string;
   writtenBy: User;
@@ -19,11 +26,11 @@ type Tweet = {
   createdAt: Date;
 };
 
-type Comments = User & {
+export type Comments = User & {
   comment: string;
 };
 
-type AccessLevel = "Admin" | "User" | "Anonymous";
+export type AccessLevel = "Admin" | "User" | "Anonymous";
 
 declare global {
   namespace Express {
@@ -39,5 +46,3 @@ declare global {
     }
   }
 }
-
-export {};

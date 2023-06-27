@@ -5,27 +5,28 @@ exports.deleteUser = exports.insertUser = exports.queryUser = void 0;
 const connectDB_1 = require("../data/connectDB");
 require("dotenv").config();
 const database_name = "userData";
-const createTable = () => { };
-const queryUser = () => {
+// const createTable = () => {};
+const queryUser = (req, res) => {
     connectDB_1.itemsPool.query(`SELECT * FROM ${database_name}`, (error, results) => {
         if (error) {
+            res.status(200).json({ message: "error in credentials" });
             console.error("Error executing query", error);
             return;
         }
         console.log("Query results:", results.rows);
+        res.status(400).send(results);
     });
 };
 exports.queryUser = queryUser;
-const insertUser = (req, res) => {
-    const { userid, username, userpassword, emailid, twitteruserid, dateofbirth, } = req.body;
-    connectDB_1.itemsPool.query(`insert into userData values($1,$2,$3,$4,$5,$6)`, [userid, username, userpassword, emailid, twitteruserid, dateofbirth], (error, results) => {
+const insertUser = (user) => {
+    console.log(user);
+    const { userID, userName, email, DOB, passwordHash, AccessLevel } = user;
+    connectDB_1.itemsPool.query(`insert into userData values($1,$2,$3,$4,$5,$6)`, [userID, userName, email, DOB, passwordHash, AccessLevel], (error, results) => {
         if (error) {
             console.error("Error executing query", error);
-            res.status(400).json({ message: "error occured" });
             return;
         }
         console.log("inserted values");
-        res.status(201).json({ message: "inserted values" });
     });
 };
 exports.insertUser = insertUser;
