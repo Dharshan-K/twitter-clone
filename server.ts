@@ -16,6 +16,6 @@ connectMongo();
 // app.post("/insert", insertUser);
 // app.post("/delete", deleteUser);
 app.use("/", userRouter);
-app.listen(5000, () => {
+app.listen(3000, () => {
   console.log("running on ort 5000");
 });

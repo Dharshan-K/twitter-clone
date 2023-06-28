@@ -26,7 +26,7 @@ const connectMongo = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         mongoose_1.default.set("strictQuery", false);
         const connection = yield mongoose_1.default.connect(MONGODB_URL);
-        console.log(MONGODB_URL);
+        console.log("mongoDB connected");
     }
     catch (error) {
         console.log(error);

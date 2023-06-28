@@ -3,6 +3,7 @@
 import * as Express from "express";
 import * as jwt from "jsonwebtoken";
 import { UserBearer } from "../types";
+import { findUser } from "../user/userController";
 require("dotenv").config();
 
 export const authUser = (
@@ -11,37 +12,48 @@ export const authUser = (
   next: Express.NextFunction
 ) => {
   let token;
-  const jwt_token: jwt.Secret = process.env.JWT_TOKEN || " ";
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
+  const verifyToken = req.headers.authorization?.toString() || " ";
+  if (verifyToken && verifyToken.startsWith("Bearer")) {
     try {
-      token = req.headers.authorization.split(" ")[1];
-      const decoded = jwt.verify(token, jwt_token);
-      console.log(typeof decoded);
+      token = verifyToken.split(" ")[1];
+      const decoded = decode(token);
+      console.log("authentication complete");
       if (decoded) {
-        // req.User.authenticationHash = decoded;
-        // const {userID,userName,email,DOB,passwordHash,AccessLevel} =
+        findUser(
+          decoded.userData.userID,
+          decoded.userData.email,
+          (error, results, doExist) => {
+            if (error) {
+              console.log(error);
+              res.status(201).send(error);
+              return;
+            } else if (doExist === true) {
+              req.User = results;
+              next();
+            }
+          }
+        );
       } else {
         console.log("your user credetials not valid");
       }
+      return;
     } catch (error) {
-      console.log(error);
+      console.log("error", error);
+      return;
     }
   }
 };
 
 export function decode<T extends object>(iJWT: string): T | any {
-  const bearerData = jwt.verify(iJWT, process.env.JWT_TOKEN as jwt.Secret);
+  const bearerData = jwt.verify(iJWT, process.env.JWT_TOKEN as string);
   return bearerData;
 }
 
-export function encode<T extends object>(userData: UserBearer): T | string {
+export function encode(userData: UserBearer): string {
   if (userData) {
-    return jwt.sign({ userData }, process.env.JWT_TOKEN as jwt.Secret, {
+    return `Bearer ${jwt.sign({ userData }, process.env.JWT_TOKEN as string, {
       expiresIn: "30d",
-    });
+    })}`;
   } else {
     throw new Error("ente the proper credentials");
   }

@@ -3,26 +3,38 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateID = exports.encode = exports.decode = exports.authUser = void 0;
 const jwt = require("jsonwebtoken");
+const userController_1 = require("../user/userController");
 require("dotenv").config();
 const authUser = (req, res, next) => {
+    var _a;
     let token;
-    const jwt_token = process.env.JWT_TOKEN || " ";
-    if (req.headers.authorization &&
-        req.headers.authorization.startsWith("Bearer")) {
+    const verifyToken = ((_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.toString()) || " ";
+    if (verifyToken && verifyToken.startsWith("Bearer")) {
         try {
-            token = req.headers.authorization.split(" ")[1];
-            const decoded = jwt.verify(token, jwt_token);
-            console.log(typeof decoded);
+            token = verifyToken.split(" ")[1];
+            const decoded = decode(token);
+            console.log("authentication complete");
             if (decoded) {
-                // req.User.authenticationHash = decoded;
-                // const {userID,userName,email,DOB,passwordHash,AccessLevel} =
+                (0, userController_1.findUser)(decoded.userData.userID, decoded.userData.email, (error, results, doExist) => {
+                    if (error) {
+                        console.log(error);
+                        res.status(201).send(error);
+                        return;
+                    }
+                    else if (doExist === true) {
+                        req.User = results;
+                        next();
+                    }
+                });
             }
             else {
                 console.log("your user credetials not valid");
             }
+            return;
         }
         catch (error) {
-            console.log(error);
+            console.log("error", error);
+            return;
         }
     }
 };
@@ -34,9 +46,9 @@ function decode(iJWT) {
 exports.decode = decode;
 function encode(userData) {
     if (userData) {
-        return jwt.sign({ userData }, process.env.JWT_TOKEN, {
+        return `Bearer ${jwt.sign({ userData }, process.env.JWT_TOKEN, {
             expiresIn: "30d",
-        });
+        })}`;
     }
     else {
         throw new Error("ente the proper credentials");

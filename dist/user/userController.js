@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.insertUser = exports.queryUser = void 0;
+exports.findUser = exports.deleteUser = exports.insertUser = exports.queryUser = void 0;
 /** @format */
 const connectDB_1 = require("../data/connectDB");
 require("dotenv").config();
@@ -19,11 +19,10 @@ const queryUser = (req, res) => {
 };
 exports.queryUser = queryUser;
 const insertUser = (user) => {
-    console.log(user);
     const { userID, userName, email, DOB, passwordHash, AccessLevel } = user;
-    connectDB_1.itemsPool.query(`insert into userData values($1,$2,$3,$4,$5,$6)`, [userID, userName, email, DOB, passwordHash, AccessLevel], (error, results) => {
+    connectDB_1.itemsPool.query(`insert into userData values($1,$2,$3,$4,$5,$6)`, [userID, userName, passwordHash, email, DOB, AccessLevel], (error, results) => {
         if (error) {
-            console.error("Error executing query", error);
+            console.log("Error executing query", error);
             return;
         }
         console.log("inserted values");
@@ -43,3 +42,23 @@ const deleteUser = (req, res) => {
     });
 };
 exports.deleteUser = deleteUser;
+const findUser = (userID, emailid, callback) => {
+    connectDB_1.itemsPool.query(`select * from ${database_name} where userid=$1 or emailid=$2;`, [userID, emailid], (error, results) => {
+        if (error) {
+            callback(error, null, null);
+            return;
+        }
+        else if (results.rows.length > 0) {
+            console.log("user already exist");
+            console.log(results.rows);
+            callback(null, results.rows[0], true);
+            return;
+        }
+        else if (results.rows.length === 0) {
+            console.log("user does not exist");
+            callback(null, null, false);
+            return;
+        }
+    });
+};
+exports.findUser = findUser;

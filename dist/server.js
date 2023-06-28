@@ -15,6 +15,6 @@ connectDB_1.itemsPool;
 // app.post("/insert", insertUser);
 // app.post("/delete", deleteUser);
 app.use("/", userRouter_1.userRouter);
-app.listen(5000, () => {
+app.listen(3000, () => {
     console.log("running on ort 5000");
 });
