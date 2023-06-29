@@ -1,8 +1,18 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signUp = exports.login = void 0;
 const userController_1 = require("./userController");
 const authmiddleware_1 = require("../middleware/authmiddleware");
+const bcrypt = require("bcrypt");
 const login = (req, res) => {
     const { userid, emailid, userpassword } = req.body;
     if (userid && emailid && userpassword) {
@@ -44,13 +54,21 @@ const login = (req, res) => {
     }
 };
 exports.login = login;
-const signUp = (req, res) => {
+const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const password = yield hashPassword(req.body.userpassword)
+        .then((value) => {
+        console.log(value);
+        return value;
+    })
+        .catch((error) => {
+        throw new Error(error);
+    });
     const data = {
         userID: req.body.userid,
         userName: req.body.username,
         email: req.body.emailid,
         DOB: new Date(req.body.dateofbirth),
-        passwordHash: req.body.userpassword,
+        passwordHash: password,
         AccessLevel: req.body.accesslevel,
     };
     if (data) {
@@ -76,5 +94,12 @@ const signUp = (req, res) => {
     else {
         throw new Error("enter all the credentials");
     }
-};
+});
 exports.signUp = signUp;
+function hashPassword(userPassword) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const salt = yield bcrypt.genSalt(10);
+        const pass = yield bcrypt.hash(userPassword, salt);
+        return pass;
+    });
+}

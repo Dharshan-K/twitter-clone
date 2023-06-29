@@ -6,6 +6,7 @@ import { itemsPool } from "../data/connectDB";
 import { findUser, insertUser } from "./userController";
 import { UserBearer } from "../types";
 import { encode } from "../middleware/authmiddleware";
+import * as bcrypt from "bcrypt";
 
 export const login = (req: Express.Request, res: Express.Response): void => {
   const { userid, emailid, userpassword } = req.body;
@@ -47,13 +48,25 @@ export const login = (req: Express.Request, res: Express.Response): void => {
   }
 };
 
-export const signUp = (req: Express.Request, res: Express.Response): void => {
+export const signUp = async (
+  req: Express.Request,
+  res: Express.Response
+): Promise<void> => {
+  const password = await hashPassword(req.body.userpassword)
+    .then((value) => {
+      console.log(value);
+      return value;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
   const data: User = {
     userID: req.body.userid,
     userName: req.body.username,
     email: req.body.emailid,
     DOB: new Date(req.body.dateofbirth),
-    passwordHash: req.body.userpassword,
+    passwordHash: password,
+
     AccessLevel: req.body.accesslevel,
   };
   if (data) {
@@ -77,3 +90,9 @@ export const signUp = (req: Express.Request, res: Express.Response): void => {
     throw new Error("enter all the credentials");
   }
 };
+
+async function hashPassword(userPassword: string): Promise<string> {
+  const salt = await bcrypt.genSalt(10);
+  const pass = await bcrypt.hash(userPassword, salt);
+  return pass;
+}

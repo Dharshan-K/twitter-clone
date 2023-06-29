@@ -23,6 +23,7 @@ export type Tweet = {
   writtenBy: User;
   tweetComment: Comments[];
   likes: number;
+  Retweets: number;
   createdAt: Date;
 };
 
@@ -46,3 +47,9 @@ declare global {
     }
   }
 }
+
+export type Follow = {
+  UserID: string;
+  FollowedBy: User[];
+  Followers: User[];
+};

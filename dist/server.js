@@ -11,7 +11,7 @@ app.use(cors());
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: false }));
 connectDB_1.itemsPool;
-(0, connectDB_1.connectMongo)();
+// connectMongo();
 // app.post("/insert", insertUser);
 // app.post("/delete", deleteUser);
 app.use("/", userRouter_1.userRouter);
