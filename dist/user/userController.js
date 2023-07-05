@@ -19,8 +19,8 @@ const queryUser = (req, res) => {
 };
 exports.queryUser = queryUser;
 const insertUser = (user) => {
-    const { userID, userName, email, DOB, passwordHash, AccessLevel } = user;
-    connectDB_1.itemsPool.query(`insert into userData values($1,$2,$3,$4,$5,$6)`, [userID, userName, passwordHash, email, DOB, AccessLevel], (error, results) => {
+    const { userid, username, email, dob, passwordhash, accesslevel } = user;
+    connectDB_1.itemsPool.query(`insert into userData values($1,$2,$3,$4,$5,$6)`, [userid, username, passwordhash, email, dob, accesslevel], (error, results) => {
         if (error) {
             console.log("Error executing query", error);
             return;

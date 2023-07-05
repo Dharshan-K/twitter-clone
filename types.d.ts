@@ -3,12 +3,12 @@
 import { JwtPayload } from "jsonwebtoken";
 
 export type User = {
-  userID: string;
-  userName: string;
+  userid: string;
+  username: string;
   email: string;
-  DOB: Date;
-  passwordHash: string;
-  AccessLevel: AccessLevel;
+  dob: Date;
+  passwordhash: string;
+  accesslevel: AccessLevel;
 };
 
 export type UserBearer = {

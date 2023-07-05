@@ -24,10 +24,10 @@ export const queryUser = (req: Request, res: Response) => {
 };
 
 export const insertUser = (user: User): void => {
-  const { userID, userName, email, DOB, passwordHash, AccessLevel } = user;
+  const { userid, username, email, dob, passwordhash, accesslevel } = user;
   itemsPool.query(
     `insert into userData values($1,$2,$3,$4,$5,$6)`,
-    [userID, userName, passwordHash, email, DOB, AccessLevel],
+    [userid, username, passwordhash, email, dob, accesslevel],
     (error: any, results: any) => {
       if (error) {
         console.log("Error executing query", error);

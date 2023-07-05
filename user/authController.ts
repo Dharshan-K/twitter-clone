@@ -61,16 +61,16 @@ export const signUp = async (
       throw new Error(error);
     });
   const data: User = {
-    userID: req.body.userid,
-    userName: req.body.username,
+    userid: req.body.userid,
+    username: req.body.username,
     email: req.body.emailid,
-    DOB: new Date(req.body.dateofbirth),
-    passwordHash: password,
+    dob: new Date(req.body.dateofbirth),
+    passwordhash: password,
 
-    AccessLevel: req.body.accesslevel,
+    accesslevel: req.body.accesslevel,
   };
   if (data) {
-    findUser(data.userID, data.email, (error, results, doesExist) => {
+    findUser(data.userid, data.email, (error, results, doesExist) => {
       if (error) {
         console.log(error);
         res.status(400).json({ message: "error created" });

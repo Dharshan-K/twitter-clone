@@ -64,15 +64,15 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error(error);
     });
     const data = {
-        userID: req.body.userid,
-        userName: req.body.username,
+        userid: req.body.userid,
+        username: req.body.username,
         email: req.body.emailid,
-        DOB: new Date(req.body.dateofbirth),
-        passwordHash: password,
-        AccessLevel: req.body.accesslevel,
+        dob: new Date(req.body.dateofbirth),
+        passwordhash: password,
+        accesslevel: req.body.accesslevel,
     };
     if (data) {
-        (0, userController_1.findUser)(data.userID, data.email, (error, results, doesExist) => {
+        (0, userController_1.findUser)(data.userid, data.email, (error, results, doesExist) => {
             if (error) {
                 console.log(error);
                 res.status(400).json({ message: "error created" });
