@@ -4,7 +4,7 @@ import { itemsPool } from "../data/connectDB";
 import * as Express from "express";
 import { v4 as uuidv4 } from "uuid";
 
-const generateUUID = () => {
+export const generateUUID = () => {
   return uuidv4();
 };
 

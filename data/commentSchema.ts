@@ -6,7 +6,7 @@ const commentSchema = new mongoose.Schema({
   commentData: { type: String, required: true },
   userID: { type: String, required: true },
   like: { type: Number, required: true },
-  replies: [this],
+  replies: [{ type: mongoose.Schema.Types.ObjectId, ref: "commentSchema" }],
 });
 
 const nestedComment = new mongoose.Schema({

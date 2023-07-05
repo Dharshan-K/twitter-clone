@@ -12,9 +12,7 @@ app.use(cors());
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: false }));
 connectDB_1.itemsPool;
-// connectMongo();
-// app.post("/insert", insertUser);
-// app.post("/delete", deleteUser);
+(0, connectDB_1.connectMongo)();
 app.use("/", userRouter_1.userRouter);
 app.use("/tweet", tweetRouter_1.tweetRouter);
 app.listen(3000, () => {

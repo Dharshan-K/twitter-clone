@@ -13,9 +13,8 @@ app.use(Express.json());
 app.use(Express.urlencoded({ extended: false }));
 
 itemsPool;
-// connectMongo();
-// app.post("/insert", insertUser);
-// app.post("/delete", deleteUser);
+connectMongo();
+
 app.use("/", userRouter);
 app.use("/tweet", tweetRouter);
 app.listen(3000, () => {
