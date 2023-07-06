@@ -11,3 +11,4 @@ const tweetRouter = Express.Router();
 exports.tweetRouter = tweetRouter;
 tweetRouter.route("/insertTweet").post(authmiddleware_1.authUser, tweetController_1.createTweet);
 tweetRouter.route("/addComment").post(authmiddleware_1.authUser, commentController_1.addCommentsToTweet);
+tweetRouter.route("/addToComment").post(authmiddleware_1.authUser, commentController_1.addCommentToComment);

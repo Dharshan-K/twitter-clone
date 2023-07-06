@@ -11,20 +11,15 @@ import * as bcrypt from "bcrypt";
 export const login = (req: Express.Request, res: Express.Response): void => {
   const { userid, emailid, userpassword } = req.body;
   if (userid! && emailid! && userpassword!) {
-    console.log("loggin process started....");
     findUser(userid, emailid, (error, results, doesExist) => {
-      console.log("results", results);
       if (error) {
         console.log(error);
         return;
       } else if (doesExist === false) {
-        console.log("enter the correct credentials");
         res.status(201).json({ message: "try another username" });
 
         return;
       } else if (doesExist === true) {
-        console.log("user exist");
-        console.log(error, results, doesExist);
         const bearerType: UserBearer = {
           userID: results.userid,
           email: results.emailid,

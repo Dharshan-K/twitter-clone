@@ -30,7 +30,7 @@ const addCommentsToTweet = (req, res) => __awaiter(void 0, void 0, void 0, funct
         });
         yield commentSchema_1.nestedCommentModel.create({
             tweetID: tweetID,
-            Comment: [],
+            Comment: [commentObject],
         });
         res.status(401).json({ message: "commented on the post" });
         return;
@@ -39,11 +39,38 @@ const addCommentsToTweet = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.addCommentsToTweet = addCommentsToTweet;
-const addCommentToComment = (req, res) => {
-    const { tweetID, userID, comment } = req.body;
-    if (!comment || !tweetID || !userID) {
+const addCommentToComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tweetID, userID, comment, commentID } = req.body;
+    if (!comment && !userID && (tweetID || commentID)) {
         res.status(201).json({ message: "user credentials missing" });
         return;
     }
-};
+    if (tweetID) {
+        const addComment = yield commentSchema_1.commentModel.create({
+            commentID: (0, tweetController_1.generateUUID)().toString(),
+            tweetID: tweetID,
+            parentComment: null,
+            commentData: comment,
+            userID: userID,
+            like: 0,
+        });
+        console.log("addComment", addComment);
+        res.status(400).json({ message: "comment successfully added to tweet" });
+        return;
+    }
+    else if (commentID) {
+        const addReply = yield commentSchema_1.commentModel.create({
+            commentID: (0, tweetController_1.generateUUID)().toString(),
+            tweetID: null,
+            parentComment: commentID,
+            commentData: comment,
+            userID: userID,
+            like: 0,
+        });
+        console.log("addReply", addReply);
+        res.status(400).json({ message: "comment successfully added to comment" });
+        return;
+    }
+    return;
+});
 exports.addCommentToComment = addCommentToComment;
