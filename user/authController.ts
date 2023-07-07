@@ -10,29 +10,33 @@ import * as bcrypt from "bcrypt";
 
 export const login = (req: Express.Request, res: Express.Response): void => {
   const { userid, emailid, userpassword } = req.body;
-  if (userid! && emailid! && userpassword!) {
-    findUser(userid, emailid, (error, results, doesExist) => {
+  if ((userid! || emailid!) && userpassword) {
+    findUser(userid, emailid, async (error, results, doesExist) => {
       if (error) {
         console.log(error);
         return;
       } else if (doesExist === false) {
         res.status(201).json({ message: "try another username" });
-
         return;
       } else if (doesExist === true) {
-        const bearerType: UserBearer = {
-          userID: results.userid,
-          email: results.emailid,
-          AccessLevel: results.accesslevel,
-        };
-        if (bearerType) {
-          const token = encode(bearerType);
-          console.log(token);
-          req.headers.authorization = token;
-          res.status(400).json({ message: "user logged in" });
-          return;
+        if (
+          results &&
+          (await bcrypt.compare(userpassword, results.passwordhash))
+        ) {
+          const bearerType: UserBearer = {
+            userID: results.userid,
+            email: results.emailid,
+            AccessLevel: results.accesslevel,
+          };
+          if (bearerType) {
+            const token = encode(bearerType);
+            console.log(token);
+            req.headers.authorization = token;
+            res.status(400).json({ message: "user logged in" });
+            return;
+          }
         }
-
+        res.status(401).json({ message: "wrong Password" });
         return;
       } else {
         console.log("data not found");
@@ -47,7 +51,20 @@ export const signUp = async (
   req: Express.Request,
   res: Express.Response
 ): Promise<void> => {
-  const password = await hashPassword(req.body.userpassword)
+  const { userid, username, emailid, dateofbirth, userpassword, accesslevel } =
+    req.body;
+  if (
+    !userid ||
+    !username ||
+    !emailid ||
+    !dateofbirth ||
+    !userpassword ||
+    !accesslevel
+  ) {
+    res.status(400).json({ message: "user credentials missing" });
+    return;
+  }
+  const password = await hashPassword(userpassword)
     .then((value) => {
       console.log(value);
       return value;
@@ -56,14 +73,14 @@ export const signUp = async (
       throw new Error(error);
     });
   const data: User = {
-    userid: req.body.userid,
-    username: req.body.username,
-    email: req.body.emailid,
-    dob: new Date(req.body.dateofbirth),
+    userid: userid,
+    username: username,
+    email: emailid,
+    dob: new Date(dateofbirth),
     passwordhash: password,
-
-    accesslevel: req.body.accesslevel,
+    accesslevel: accesslevel,
   };
+
   if (data) {
     findUser(data.userid, data.email, (error, results, doesExist) => {
       if (error) {

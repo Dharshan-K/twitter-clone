@@ -28,7 +28,3 @@ export const createTweet = (req: Express.Request, res: Express.Response) => {
     }
   );
 };
-
-export const comment = (req: Express.Request, res: Express.Response) => {
-  const { commentBody, tweetid } = req.body;
-};

@@ -70,7 +70,6 @@ export const findUser = (
         return;
       } else if (results.rows.length > 0) {
         console.log("user already exist");
-        console.log(results.rows);
         callback(null, results.rows[0], true);
         return;
       } else if (results.rows.length === 0) {
