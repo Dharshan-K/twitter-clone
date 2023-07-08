@@ -1,0 +1,29 @@
+#login-background {
+    min-height: 100vh;
+    margin: 0vh;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+}
+
+#login-box {
+    margin: 0vh 60vh 0vh 60vh;
+    min-height: 70vh;
+    width: 80vh;
+    min-width: 50vh;
+    max-width: 150vh;
+    border-radius: 20px;
+}
+
+.twitter-icon {
+    color: white;
+}
+
+#userName {
+    border-color: grey;
+}
+
+#userName:focus {
+    border-color: #008ae6;
+    border-width: 3px;
+    outline: none
+}
