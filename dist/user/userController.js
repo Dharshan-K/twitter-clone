@@ -50,7 +50,6 @@ const findUser = (userID, emailid, callback) => {
         }
         else if (results.rows.length > 0) {
             console.log("user already exist");
-            console.log(results.rows);
             callback(null, results.rows[0], true);
             return;
         }

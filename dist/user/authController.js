@@ -15,8 +15,8 @@ const authmiddleware_1 = require("../middleware/authmiddleware");
 const bcrypt = require("bcrypt");
 const login = (req, res) => {
     const { userid, emailid, userpassword } = req.body;
-    if (userid && emailid && userpassword) {
-        (0, userController_1.findUser)(userid, emailid, (error, results, doesExist) => {
+    if ((userid || emailid) && userpassword) {
+        (0, userController_1.findUser)(userid, emailid, (error, results, doesExist) => __awaiter(void 0, void 0, void 0, function* () {
             if (error) {
                 console.log(error);
                 return;
@@ -26,18 +26,22 @@ const login = (req, res) => {
                 return;
             }
             else if (doesExist === true) {
-                const bearerType = {
-                    userID: results.userid,
-                    email: results.emailid,
-                    AccessLevel: results.accesslevel,
-                };
-                if (bearerType) {
-                    const token = (0, authmiddleware_1.encode)(bearerType);
-                    console.log(token);
-                    req.headers.authorization = token;
-                    res.status(400).json({ message: "user logged in" });
-                    return;
+                if (results &&
+                    (yield bcrypt.compare(userpassword, results.passwordhash))) {
+                    const bearerType = {
+                        userID: results.userid,
+                        email: results.emailid,
+                        AccessLevel: results.accesslevel,
+                    };
+                    if (bearerType) {
+                        const token = (0, authmiddleware_1.encode)(bearerType);
+                        console.log(token);
+                        req.headers.authorization = token;
+                        res.status(400).json({ message: "user logged in" });
+                        return;
+                    }
                 }
+                res.status(401).json({ message: "wrong Password" });
                 return;
             }
             else {
@@ -45,12 +49,22 @@ const login = (req, res) => {
                 res.status(400).json({ message: "data not found" });
                 return;
             }
-        });
+        }));
     }
 };
 exports.login = login;
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const password = yield hashPassword(req.body.userpassword)
+    const { userid, username, emailid, dateofbirth, userpassword, accesslevel } = req.body;
+    if (!userid ||
+        !username ||
+        !emailid ||
+        !dateofbirth ||
+        !userpassword ||
+        !accesslevel) {
+        res.status(400).json({ message: "user credentials missing" });
+        return;
+    }
+    const password = yield hashPassword(userpassword)
         .then((value) => {
         console.log(value);
         return value;
@@ -59,12 +73,12 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error(error);
     });
     const data = {
-        userid: req.body.userid,
-        username: req.body.username,
-        email: req.body.emailid,
-        dob: new Date(req.body.dateofbirth),
+        userid: userid,
+        username: username,
+        email: emailid,
+        dob: new Date(dateofbirth),
         passwordhash: password,
-        accesslevel: req.body.accesslevel,
+        accesslevel: accesslevel,
     };
     if (data) {
         (0, userController_1.findUser)(data.userid, data.email, (error, results, doesExist) => {

@@ -15,13 +15,13 @@ import { GoBell } from "react-icons/go";
 import { BsHouseDoor, BsThreeDots } from "react-icons/bs";
 export default function SidebarComponent() {
   const styles = {
-    "sidebar-Links": "text-white ml-24 mt-10 mb-10 text-2xl",
+    "sidebar-Links": "text-white ml-24 mt-10 mb-10 text-xl",
     "tweet-button":
-      "bg-blue-500 text-white border-1 rounded-full w-60 h-12 text-xl font-bold ml-24",
+      "bg-[#1d9bf0] text-white border-1 rounded-full w-52 h-12 text-lg font-bold ml-24",
   };
   return (
-    <div>
-      <div id="sidebar" className="bg-black w-96 min-w-200 h-96 min-h-screen">
+    <div className="">
+      <div id="sidebar" className="bg-black w-96 h-96 min-h-screen">
         <span>
           <FaTwitter />
         </span>
@@ -70,8 +70,8 @@ export default function SidebarComponent() {
         <Link href="#">
           <button className={styles["tweet-button"]}>Tweet</button>
         </Link>
-        <div className="grid grid-col-3 grid-flow-row bg-black mt-20 ml-20">
-          <div className="roq-start-1 row-end-2 row-span-2 pl-6">
+        <div className="grid grid-col-3 grid-flow-ro mt-20 ml-20">
+          <div className="row-end-2 row-span-2 pl-6">
             <img
               className="border-1 rounded-full h-14"
               src="https://source.unsplash.com/random/200x200?sig=incrementingIdentifier."

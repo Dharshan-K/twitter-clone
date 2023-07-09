@@ -1,7 +1,7 @@
 "use strict";
 /** @format */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.comment = exports.createTweet = exports.generateUUID = void 0;
+exports.createTweet = exports.generateUUID = void 0;
 const connectDB_1 = require("../data/connectDB");
 const uuid_1 = require("uuid");
 const generateUUID = () => {
@@ -24,7 +24,3 @@ const createTweet = (req, res) => {
     });
 };
 exports.createTweet = createTweet;
-const comment = (req, res) => {
-    const { commentBody, tweetid } = req.body;
-};
-exports.comment = comment;
