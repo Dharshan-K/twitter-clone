@@ -10,6 +10,8 @@ import SearchBar from "@/Components/utils/SearchBar";
 import MainHashtag from "@/Components/Explore/MainHashtag";
 import MainExplore from "@/Components/Explore/MainExplore";
 import FollowComponent from "@/Components/FollowBar/FollowComponent";
+import TweetEditor from "@/Components/utils/TweetEditor";
+import HomeHeader from "@/Components/HomePage/HomeHeader";
 
 export default function Home() {
   return (
@@ -19,6 +21,8 @@ export default function Home() {
           <SidebarComponent />
         </div>
         <div className="basis-2/4 ml-[384px]">
+          <HomeHeader />
+          <TweetEditor />
           <MainPage />
         </div>
         <div className="basis-6/12 bg-black">

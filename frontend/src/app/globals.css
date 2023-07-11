@@ -8,3 +8,14 @@ body{
 
 
 
+#tweetComponent{
+  border-bottom: 0px;
+}
+
+#tweetEditor{
+  border-bottom: 0px;
+}
+
+#tweetHeader {
+  border-bottom: 0px;
+}

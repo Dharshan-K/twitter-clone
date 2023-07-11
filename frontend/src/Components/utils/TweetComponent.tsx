@@ -1,15 +1,23 @@
 /** @format */
 import { BsThreeDots } from "react-icons/bs";
+import { FaRegHeart, FaRegComment } from "react-icons/fa";
+import { AiOutlineRetweet } from "react-icons/ai";
+import { FiShare } from "react-icons/fi";
+import { VscGraph } from "react-icons/vsc";
+import { LiaDonateSolid } from "react-icons/lia";
 export default function TweetComponent() {
   return (
-    <div className="flex flex-row bg-black w-[80vh] h-[62vh] border-[#404040] border-2">
+    <div
+      id="tweetComponent"
+      className="flex flex-row bg-black w-[80vh] h-[65vh] border-[#404040] border-2"
+    >
       <div id="profile-picture" className="basis-[70px]">
         <img
-          className="border-1 rounded-full w-12 h-12 ml-2 mt-3"
+          className="border-1 rounded-full w-10 h-10 ml-2 mt-3"
           src="https://source.unsplash.com/random/200x200?sig=incrementingIdentifier"
         />
       </div>
-      <div id="user-info" className="basis-5/6 w-96">
+      <div id="user-info" className="basis-5/6 w-96 mr-5">
         <div className="flex mt-2 mb-2">
           <p className="text-white text-[16px] w-[100px] font-bold">
             Dharshan K
@@ -35,6 +43,33 @@ export default function TweetComponent() {
               alt=""
             />
           </div>
+        </div>
+        <div
+          id="tweet-footer"
+          className="text-slate-500 text-[17px] flex mt-4 ml-5 hover: text-pink-600"
+        >
+          <button className="flex w-24 text-slate-500 hover:text-pink-600 ">
+            <FaRegHeart className="my-1" />
+            <p className="text-[13px] px-2 pt-1">340</p>
+          </button>
+          <button className="flex w-24 text-slate-500 hover:text-green-600">
+            <AiOutlineRetweet className="my-1 text-[20px]" />
+            <p className="text-[13px] px-2 pt-1">340</p>
+          </button>
+          <button className="flex w-24 text-slate-500 hover:text-blue-600">
+            <FaRegComment className="my-1" />
+            <p className="text-[13px] px-2 pt-1">340</p>
+          </button>
+          <button className="flex w-16 text-slate-500 hover:text-blue-600">
+            <VscGraph className="my-1 text-[17px]" />
+          </button>
+          <button className="flex w-16 text-slate-500 hover:text-blue-600">
+            <FiShare className="my-1 text-[17px]" />
+          </button>
+          <button className="flex w-24 text-slate-500 hover:text-blue-600">
+            <LiaDonateSolid className="my-1 text-[20px]" />
+            <span className="text-[13px] px-2 pt-1">Tip</span>
+          </button>
         </div>
       </div>
     </div>

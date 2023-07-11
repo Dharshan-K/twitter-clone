@@ -70,17 +70,17 @@ export default function SidebarComponent() {
         <Link href="#">
           <button className={styles["tweet-button"]}>Tweet</button>
         </Link>
-        <div className="grid grid-col-3 grid-flow-ro mt-20 ml-20">
-          <div className="row-end-2 row-span-2 pl-6">
+        <div className="grid grid-col-3 grid-flow-row mt-20 ml-20">
+          <div className="row-span-2 pl-6 pt-2">
             <img
-              className="border-1 rounded-full h-14"
+              className="border-1 rounded-full h-10"
               src="https://source.unsplash.com/random/200x200?sig=incrementingIdentifier."
-            ></img>
+            />
           </div>
-          <div className="text-black col-start-2 row-span-1 justify-center text-xl pt-1 h-5 ">
+          <div className="text-black col-start-2 row-span-1 justify-center text-xl pt-1 h-5 mr-16">
             <span className="w-20 text-white">Dharshan K</span>
           </div>
-          <div className="text-black col-start-2 row-span-1 justify-center w-4 h-5">
+          <div className="text-black col-start-2 row-span-1 justify-center mt-1 w-4 h-5">
             <span className="text-white text-sm">@kd_prog</span>
           </div>
           <div className="col-start-3 col-span-1 ">
