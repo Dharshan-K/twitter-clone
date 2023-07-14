@@ -10,6 +10,10 @@ export default function MainPage() {
         <TweetComponent />
         <TweetComponent />
         <TweetComponent />
+        <TweetComponent />
+        <TweetComponent />
+        <TweetComponent />
+        <TweetComponent />
       </div>
     </div>
   );

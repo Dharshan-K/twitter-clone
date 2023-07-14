@@ -2,7 +2,7 @@
 
 export default function HomeHeader() {
   const styles = {
-    "home-header": "mx-20 my-10 text-lg font-bold text-white basis-1/2",
+    "home-header": "mx-28 my-10 text-lg font-bold text-white basis-1/2",
   };
   return (
     <div

@@ -20,13 +20,13 @@ export default function Home() {
         <div className="basis-1/4 fixed">
           <SidebarComponent />
         </div>
-        <div className="basis-2/4 ml-[384px]">
+        <div className="basis-2/4 ml-[384px] sticky">
           <HomeHeader />
           <TweetEditor />
           <MainPage />
         </div>
         <div className="basis-6/12 bg-black">
-          <div className="ml-6">
+          <div className="ml-6 sticky overflow-visible top-0">
             <SuggestionsComponent />
           </div>
         </div>

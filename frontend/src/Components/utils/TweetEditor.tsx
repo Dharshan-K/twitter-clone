@@ -21,7 +21,7 @@ export default function TweetEditor() {
       </div>
       <div className="basis-11/12 w-[400px]">
         <textarea
-          className="w-full py-2 bg-black text-white rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full py-2 bg-black text-white rounded-md resize-none outline-none"
           rows={3}
           placeholder="What's happening?"
         ></textarea>

@@ -1,6 +1,35 @@
 /** @format */
+"use client";
 import { MdSearch } from "react-icons/md";
+import {
+  getSearchQuery,
+  getUserQuery,
+} from "../../../../tweets/utils/searchAPI";
+import axios from "axios";
+import { useState } from "react";
+
 export default function SearchBar() {
+  const [searchQuery, setsearchQuery] = useState("");
+
+  const handleChange = (event: any) => {
+    setsearchQuery(event.target.value);
+  };
+
+  const onInput = async () => {
+    console.log("query started.........");
+    if (searchQuery === null) {
+      return;
+    } else {
+      const data = { searchQuery: searchQuery };
+      const response = await axios.post(
+        "http://localhost:3000/tweet/search",
+        data
+      );
+      console.log("response", response.data.tweetQuery[0]);
+      console.log("response", response.data.userQuery[0]);
+      return response;
+    }
+  };
   return (
     <div>
       <div
@@ -10,7 +39,14 @@ export default function SearchBar() {
         <span className="text-[#71767b] text-2xl ml-3 mt-2">
           <MdSearch />
         </span>
-        <span className="text-[#71767b] text-lg mx-3 mt-1">Search Twitter</span>
+        <input
+          className="text-white bg-[#202327] text-lg mx-3 mt-1 outline-none"
+          id="searchBarInput"
+          value={searchQuery}
+          onKeyDown={onInput}
+          onChange={handleChange}
+          placeholder="Search Twitter"
+        />
       </div>
     </div>
   );

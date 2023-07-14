@@ -27,6 +27,7 @@
     "@types/bcrypt": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/uuid": "^9.0.2",
+    "re": "^0.1.4",
     "uuid": "^9.0.0"
   }
 }
