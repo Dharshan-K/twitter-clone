@@ -8,9 +8,16 @@ export const generateUUID = () => {
   return uuidv4();
 };
 
+export const getTweets = async (req: Express.Request, res: Express.Response) => {
+  const tweets = await itemsPool.query("select * from usertweets");
+  console.log(tweets.rows)
+  res.status(201).send(tweets.rows)
+}
+
 export const createTweet = (req: Express.Request, res: Express.Response) => {
   const { tweet } = req.body;
   const hashTags = getHastags(tweet);
+  
   const users = getUsers(tweet);
   console.log(users);
   console.log(hashTags);
@@ -19,8 +26,8 @@ export const createTweet = (req: Express.Request, res: Express.Response) => {
   console.log("processing the tweets.........");
 
   itemsPool.query(
-    `insert into usertweets values($1,$2,$3,$4,$5,$6,$7)`,
-    [tweetID, tweet, userid, 0, 0, new Date(), hashTags],
+    `insert into usertweets values($1,$2,$3,$4,$5,$6,$7,$8)`,
+    [tweetID, tweet, userid, 0, 0, new Date(), hashTags,users],
     (error: any, results: any) => {
       if (error) {
         console.log("Error executing query", error);
@@ -35,7 +42,9 @@ export const createTweet = (req: Express.Request, res: Express.Response) => {
 
 function getHastags(tweetString: String): RegExpMatchArray | null {
   const checkHashtag = /#\w+/g;
+  
   const hashTags: RegExpMatchArray | null = tweetString.match(checkHashtag);
+  tweetString.replace(checkHashtag,"<Link href={http://localhost:3000/search/`${}`}>#</Link>")
   return hashTags;
 }
 
@@ -44,3 +53,5 @@ function getUsers(tweetString: String): RegExpMatchArray | null {
   const users: RegExpMatchArray | null = tweetString.match(checkUser);
   return users;
 }
+
+

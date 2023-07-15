@@ -14,3 +14,4 @@ tweetRouter.route("/insertTweet").post(authmiddleware_1.authUser, tweetControlle
 tweetRouter.route("/addComment").post(authmiddleware_1.authUser, commentController_1.addCommentsToTweet);
 tweetRouter.route("/addToComment").post(authmiddleware_1.authUser, commentController_1.addCommentToComment);
 tweetRouter.route("/search").post(searchAPI_1.searchAPI);
+tweetRouter.route("/home").get(tweetController_1.getTweets);

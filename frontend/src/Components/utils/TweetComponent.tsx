@@ -1,11 +1,49 @@
 /** @format */
+"use client";
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegHeart, FaRegComment } from "react-icons/fa";
 import { AiOutlineRetweet } from "react-icons/ai";
 import { FiShare } from "react-icons/fi";
 import { VscGraph } from "react-icons/vsc";
 import { LiaDonateSolid } from "react-icons/lia";
-export default function TweetComponent() {
+import { useEffect } from "react";
+import Link from "next/link";
+
+export default function TweetComponent(tweetContent: any) {
+  let { tweetid, writtenby, tweetwritten, createdat, hashtags } =
+    tweetContent.tweetContent;
+
+  function createTweet(tweetString: string): any {
+    let tweet = tweetString.split(/\s*(?=[#@])/);
+    const tweetContainer = document.createElement('div')
+    tweet.forEach((word: string) => {
+      const span = document.createElement('span')
+
+      if (word.startsWith("#")) {
+        console.log("#",word);
+        const link = document.createElement('a')
+        link.href = `http://localhost:3000/tweet/${word}`
+        link.textContent = word;
+        link.setAttribute("style","color:#1d9bf0")
+        span.appendChild(link)
+      } else if (word.startsWith("@")) {
+        console.log("@",word);
+        const link = document.createElement('a')
+        link.href = `http://localhost:3000/tweet/${word}`
+        link.textContent = word;
+        link.setAttribute("style","color:#1d9bf0")
+        span.appendChild(link)
+      } else {
+        console.log("word",word);
+        span.textContent = word;
+      }
+      tweetContainer.appendChild(span);
+      ;
+    });
+    return tweetContainer
+    
+  }
+
   return (
     <div
       id="tweetComponent"
@@ -20,21 +58,18 @@ export default function TweetComponent() {
       <div id="user-info" className="basis-5/6 w-96 mr-5">
         <div className="flex mt-2 mb-2">
           <p className="text-white text-[16px] w-[100px] font-bold">
-            Dharshan K
+            {writtenby}
           </p>
-          <p className="text-gray-700 text-[15px]">@kd_prog</p>
+          <p className="text-gray-700 text-[15px]">@userID</p>
           <span className="ml-80 mt-2">
             <BsThreeDots className="text-white" />
           </span>
         </div>
         <div className="">
           <div id="tweet-content">
-            <p className="text-white text-[15px]">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit
-              aliquam vitae deserunt, magnam ducimus repellendus voluptate
-              excepturi quos quis? Dolores eaque amet numquam iure perferendis
-              repellendus veritatis maiores, vitae ipsum?
-            </p>
+            <span className="text-white text-[15px]">
+              <div dangerouslySetInnerHTML={{ __html: createTweet(tweetwritten).outerHTML }}></div>              
+            </span>
           </div>
           <div id="tweet-footer pt-10">
             <img
