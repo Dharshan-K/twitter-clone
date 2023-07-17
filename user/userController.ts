@@ -61,10 +61,12 @@ export const findUser = (
   emailid: string,
   callback: (error: any, results: any, doesExist: any) => void
 ): any => {
+  console.log("userID, emailid", userID, emailid);
   itemsPool.query(
-    `select * from ${database_name} where userid=$1 or emailid=$2;`,
+    `select * from userdata where userid=$1 or emailid=$2;`,
     [userID, emailid],
     (error: any, results: any) => {
+      console.log(results.rows);
       if (error) {
         callback(error, null, null);
         return;

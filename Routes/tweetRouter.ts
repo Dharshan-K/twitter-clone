@@ -9,6 +9,7 @@ import {
   addCommentToComment,
 } from "../tweets/commentController";
 import { searchAPI } from "../tweets/utils/searchAPI";
+import { getMessages } from "../message/chatController";
 
 const tweetRouter = Express.Router();
 
@@ -17,5 +18,6 @@ tweetRouter.route("/addComment").post(authUser, addCommentsToTweet);
 tweetRouter.route("/addToComment").post(authUser, addCommentToComment);
 tweetRouter.route("/search").post(searchAPI);
 tweetRouter.route("/home").get(getTweets);
+tweetRouter.route("/messages").get(getMessages);
 
 export { tweetRouter };

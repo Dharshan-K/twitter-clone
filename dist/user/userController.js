@@ -43,7 +43,9 @@ const deleteUser = (req, res) => {
 };
 exports.deleteUser = deleteUser;
 const findUser = (userID, emailid, callback) => {
-    connectDB_1.itemsPool.query(`select * from ${database_name} where userid=$1 or emailid=$2;`, [userID, emailid], (error, results) => {
+    console.log("userID, emailid", userID, emailid);
+    connectDB_1.itemsPool.query(`select * from userdata where userid=$1 or emailid=$2;`, [userID, emailid], (error, results) => {
+        console.log(results.rows);
         if (error) {
             callback(error, null, null);
             return;

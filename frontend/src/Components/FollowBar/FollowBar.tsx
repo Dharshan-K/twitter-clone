@@ -1,6 +1,5 @@
 /** @format */
 
-import Link from "next/link";
 import FollowComponent from "./FollowComponent";
 
 export default function FollowBar() {
@@ -23,9 +22,9 @@ export default function FollowBar() {
           <FollowComponent />
         </div>
         <div>
-          <Link href="#" className="text-[#1d9bf0] mt-2 ml-3 mb-1">
+          <a href="#" className="text-[#1d9bf0] mt-2 ml-3 mb-1">
             Show more
-          </Link>
+          </a>
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@ const authmiddleware_1 = require("../middleware/authmiddleware");
 const bcrypt = require("bcrypt");
 const login = (req, res) => {
     const { userid, emailid, userpassword } = req.body;
+    console.log("userid, emailid, userpassword", userid, emailid, userpassword);
     if ((userid || emailid) && userpassword) {
         (0, userController_1.findUser)(userid, emailid, (error, results, doesExist) => __awaiter(void 0, void 0, void 0, function* () {
             if (error) {
@@ -22,12 +23,17 @@ const login = (req, res) => {
                 return;
             }
             else if (doesExist === false) {
+                console.log("try another username");
                 res.status(201).json({ message: "try another username" });
                 return;
             }
             else if (doesExist === true) {
+                console.log("verifying password..........");
+                console.log("results", results);
+                console.log(userpassword, results.userpassword);
+                console.log(yield bcrypt.compare(userpassword, results.userpassword));
                 if (results &&
-                    (yield bcrypt.compare(userpassword, results.passwordhash))) {
+                    (yield bcrypt.compare(userpassword, results.userpassword))) {
                     const bearerType = {
                         userID: results.userid,
                         email: results.emailid,
@@ -37,10 +43,18 @@ const login = (req, res) => {
                         const token = (0, authmiddleware_1.encode)(bearerType);
                         console.log(token);
                         req.headers.authorization = token;
-                        res.status(400).json({ message: "user logged in" });
+                        res.cookie("userID", results.userid, {
+                            maxAge: 60 * 60 * 24 * 10 * 1000,
+                        });
+                        res.cookie("userEmail", results.emailid, {
+                            maxAge: 60 * 60 * 24 * 10 * 1000,
+                        });
+                        console.log("user logged in");
+                        res.status(200).json({ message: "user logged in" });
                         return;
                     }
                 }
+                console.log("wrong Password");
                 res.status(401).json({ message: "wrong Password" });
                 return;
             }

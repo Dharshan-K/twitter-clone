@@ -10,18 +10,24 @@ import * as bcrypt from "bcrypt";
 
 export const login = (req: Express.Request, res: Express.Response): void => {
   const { userid, emailid, userpassword } = req.body;
+  console.log("userid, emailid, userpassword", userid, emailid, userpassword);
   if ((userid! || emailid!) && userpassword) {
     findUser(userid, emailid, async (error, results, doesExist) => {
       if (error) {
         console.log(error);
         return;
       } else if (doesExist === false) {
+        console.log("try another username");
         res.status(201).json({ message: "try another username" });
         return;
       } else if (doesExist === true) {
+        console.log("verifying password..........");
+        console.log("results", results);
+        console.log(userpassword, results.userpassword);
+        console.log(await bcrypt.compare(userpassword, results.userpassword));
         if (
           results &&
-          (await bcrypt.compare(userpassword, results.passwordhash))
+          (await bcrypt.compare(userpassword, results.userpassword))
         ) {
           const bearerType: UserBearer = {
             userID: results.userid,
@@ -32,10 +38,18 @@ export const login = (req: Express.Request, res: Express.Response): void => {
             const token = encode(bearerType);
             console.log(token);
             req.headers.authorization = token;
-            res.status(400).json({ message: "user logged in" });
+            res.cookie("userID", results.userid, {
+              maxAge: 60 * 60 * 24 * 10 * 1000,
+            });
+            res.cookie("userEmail", results.emailid, {
+              maxAge: 60 * 60 * 24 * 10 * 1000,
+            });
+            console.log("user logged in");
+            res.status(200).json({ message: "user logged in" });
             return;
           }
         }
+        console.log("wrong Password");
         res.status(401).json({ message: "wrong Password" });
         return;
       } else {

@@ -7,7 +7,6 @@ import { FiShare } from "react-icons/fi";
 import { VscGraph } from "react-icons/vsc";
 import { LiaDonateSolid } from "react-icons/lia";
 import { useEffect } from "react";
-import Link from "next/link";
 
 export default function TweetComponent(tweetContent: any) {
   let { tweetid, writtenby, tweetwritten, createdat, hashtags } =

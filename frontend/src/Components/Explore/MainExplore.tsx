@@ -1,6 +1,5 @@
 /** @format */
 
-import Link from "next/link";
 import MainHashtag from "./MainHashtag";
 export default function MainExplore() {
   return (
@@ -22,9 +21,9 @@ export default function MainExplore() {
           <MainHashtag />
         </div>
         <div>
-          <Link href="#" className="text-[#1d9bf0] mt-2 ml-3 mb-1">
+          <a href="#" className="text-[#1d9bf0] mt-2 ml-3 mb-1">
             Show more
-          </Link>
+          </a>
         </div>
       </div>
     </div>

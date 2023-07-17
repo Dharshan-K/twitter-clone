@@ -1,6 +1,5 @@
 /** @format */
 
-import Link from "next/link";
 import { FaTwitter, FaMagnifyingGlass, FaHouse } from "react-icons/fa6";
 import {
   MdNotificationsNone,
@@ -26,50 +25,50 @@ export default function SidebarComponent() {
           <FaTwitter />
         </span>
         <p className={`${styles["sidebar-Links"]}`}>
-          <Link href="#" className="flex flex-row">
+          <a href="#" className="flex flex-row">
             <BsHouseDoor className="basis-1/4 mt-1 text-3xl" />
             <span className="basis-3/4">Home</span>
-          </Link>
+          </a>
         </p>
         <p className={styles["sidebar-Links"]}>
-          <Link href="#" className="flex flex-row">
+          <a href="#" className="flex flex-row">
             <FaMagnifyingGlass className="basis-1/4 text-2xl" />
             <span className="basis-3/4">Explore</span>
-          </Link>
+          </a>
         </p>
         <p className={styles["sidebar-Links"]}>
-          <Link href="#" className="flex flex-row">
+          <a href="#" className="flex flex-row">
             <GoBell className="basis-1/4 text-3xl" />
             <span className="basis-3/4">Notifications</span>
-          </Link>
+          </a>
         </p>
         <p className={styles["sidebar-Links"]}>
-          <Link href="#" className="flex flex-row">
+          <a href="#" className="flex flex-row">
             <MdOutlineLocalPostOffice className="basis-1/4 text-3xl" />
             <span className="basis-3/4">Messages</span>
-          </Link>
+          </a>
         </p>
         <p className={styles["sidebar-Links"]}>
-          <Link href="#" className="flex flex-row">
+          <a href="#" className="flex flex-row">
             <MdBookmarkBorder className="basis-1/4 text-3xl" />
             <span className="basis-3/4">Bookmarks</span>
-          </Link>
+          </a>
         </p>
         <p className={styles["sidebar-Links"]}>
-          <Link href="#" className="flex flex-row">
+          <a href="#" className="flex flex-row">
             <MdPersonOutline className="basis-1/4 text-3xl" />
             <span className="basis-3/4">Profile</span>
-          </Link>
+          </a>
         </p>
         <p className={styles["sidebar-Links"]}>
-          <Link href="#" className="flex flex-row">
+          <a href="#" className="flex flex-row">
             <MdOutlineSettings className="basis-1/4 text-3xl" />
             <span className="basis-3/4">Settings</span>
-          </Link>
+          </a>
         </p>
-        <Link href="#">
+        <a href="#">
           <button className={styles["tweet-button"]}>Tweet</button>
-        </Link>
+        </a>
         <div className="grid grid-col-3 grid-flow-row mt-20 ml-20">
           <div className="row-span-2 pl-6 pt-2">
             <img
