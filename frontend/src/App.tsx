@@ -12,21 +12,28 @@ import FollowComponent from "./Components/FollowBar/FollowComponent";
 import TweetEditor from "./Components/utils/TweetEditor";
 import HomeHeader from "./Components/HomePage/HomeHeader";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./globals.css";
 
 export default function Home() {
   return (
     <div>
-      <div className="flex flex-row">
-        <div className="basis-1/4 fixed">
+      <div className="flex">
+        <div className="basis-2/6 fixed">
           <SidebarComponent />
         </div>
-        <div className="basis-2/4 ml-[384px] sticky">
-          <HomeHeader />
-          <TweetEditor />
-          <MainPage />
+        <div className="basis-2/5 ml-[384px]">
+          <div>
+            <HomeHeader />
+          </div>
+          <div>
+            <TweetEditor />
+          </div>
+          <div>
+            <MainPage />
+          </div>
         </div>
-        <div className="basis-6/12 bg-black">
-          <div className="ml-6 sticky overflow-visible top-0">
+        <div className="basis-2/6  w-[100vh] bg-black">
+          <div className="">
             <SuggestionsComponent />
           </div>
         </div>

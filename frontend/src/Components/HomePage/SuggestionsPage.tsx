@@ -6,7 +6,7 @@ import FollowBar from "../FollowBar/FollowBar";
 
 export default function SuggestionsComponent() {
   return (
-    <div className="">
+    <div className="bg-black ml-[40px] fixed top-0">
       <div>
         <SearchBar />
       </div>
