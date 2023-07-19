@@ -16,14 +16,20 @@ export default function ChatBox() {
       console.log(socket.id);
     });
     if (message) {
-      socket.emit("chat message", message);
+      console.log(
+        localStorage.getItem("toUser"),
+        localStorage.getItem("toUserID")
+      );
+      socket.emit(
+        "chat message",
+        localStorage.getItem("toUser"),
+        localStorage.getItem("userName"),
+        message
+      );
     }
   };
 
   const getMessage = async () => {
-    const cookies = document.cookie.split(";").map((cookie) => cookie.trim);
-    console.log(cookies);
-    // const userID = cookies.find(cookie=>cookie.startsWith("userID="))
     // const data = {
     //     from:
     // }

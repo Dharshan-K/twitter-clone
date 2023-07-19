@@ -5,6 +5,7 @@ import { FaTwitter } from "react-icons/fa6";
 import { checkEmail } from "../assets/utils";
 import "../../Components/assets/login.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const LoginComponent = () => {
   const [userName, setUserName]: [
@@ -23,6 +24,7 @@ export const LoginComponent = () => {
     string,
     React.Dispatch<React.SetStateAction<string>>
   ] = useState("");
+  const navigate = useNavigate();
 
   const [data, setData] = useState({
     userid: "",
@@ -45,9 +47,14 @@ export const LoginComponent = () => {
 
   const login = async (e: any) => {
     e.preventDefault();
-    console.log(data);
+
     const response = await axios.post("http://localhost:4000/login", data);
-    console.log(response);
+    console.log("response.headers", response.data);
+    localStorage.setItem("userID", response.data.userID);
+    localStorage.setItem("userName", response.data.userName);
+    localStorage.setItem("UserEmail", response.data.userEmail);
+    localStorage.setItem("token", response.data.token);
+    navigate("/home", { replace: true });
   };
 
   //
@@ -100,7 +107,10 @@ export const LoginComponent = () => {
                 id="signUpLink"
               >
                 Dont have an account?
-                <a href="#" className="text-blue-400">
+                <a
+                  href="http://localhost:3000/signUp"
+                  className="text-blue-400"
+                >
                   Sign Up
                 </a>
               </p>

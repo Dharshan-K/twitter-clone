@@ -1,0 +1,14 @@
+#Homebar{
+    background-color: blueviolet;
+    margin-left: 100px;
+    padding-left: 100px;
+    position: relative;
+}
+
+#Sidebar{
+    position: fixed;
+}
+
+#HomebarUP{
+    background-color:greenyellow;
+}

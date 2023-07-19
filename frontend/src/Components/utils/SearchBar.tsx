@@ -15,19 +15,22 @@ export default function SearchBar() {
     setsearchQuery(event.target.value);
   };
 
-  const onInput = async () => {
+  const handleKeyDown = async (event: any) => {
     console.log("query started.........");
-    if (searchQuery === null) {
-      return;
-    } else {
-      const data = { searchQuery: searchQuery };
-      const response = await axios.post(
-        "http://localhost:3000/tweet/search",
-        data
-      );
-      console.log("response", response.data.tweetQuery[0]);
-      console.log("response", response.data.userQuery[0]);
-      return response;
+    console.log(searchQuery);
+    if (event.key === "Enter") {
+      if (searchQuery === null) {
+        return;
+      } else {
+        const data = { searchQuery: searchQuery };
+        const response = await axios.post(
+          "http://localhost:4000/tweet/search",
+          data
+        );
+        console.log(response.data.userQuery[0]);
+        localStorage.setItem("userData", response.data.userQuery[0]);
+      }
+      setsearchQuery("");
     }
   };
   return (
@@ -43,7 +46,7 @@ export default function SearchBar() {
           className="text-white bg-[#202327] text-lg mx-3 mt-1 outline-none"
           id="searchBarInput"
           value={searchQuery}
-          onKeyDown={onInput}
+          onKeyDown={handleKeyDown}
           onChange={handleChange}
           placeholder="Search Twitter"
         />

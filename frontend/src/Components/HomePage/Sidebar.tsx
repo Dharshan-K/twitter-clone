@@ -1,18 +1,26 @@
 /** @format */
 
-import { FaTwitter, FaMagnifyingGlass, FaHouse } from "react-icons/fa6";
+import { FaTwitter, FaMagnifyingGlass } from "react-icons/fa6";
 import {
-  MdNotificationsNone,
   MdOutlineLocalPostOffice,
   MdBookmarkBorder,
-  MdBookmark,
-  MdSearch,
   MdPersonOutline,
   MdOutlineSettings,
 } from "react-icons/md";
 import { GoBell } from "react-icons/go";
 import { BsHouseDoor, BsThreeDots } from "react-icons/bs";
+import { useEffect } from "react";
+
 export default function SidebarComponent() {
+  const getUserName = () => {
+    // console.log("document.cookie", document.cookie);
+    // const user = document.cookie.split(";");
+    // console.log(user);
+  };
+
+  useEffect(() => {
+    getUserName();
+  }, []);
   const styles = {
     "sidebar-Links": "text-white ml-24 mt-10 mb-10 text-xl",
     "tweet-button":
@@ -77,10 +85,14 @@ export default function SidebarComponent() {
             />
           </div>
           <div className="text-black col-start-2 row-span-1 justify-center text-xl pt-1 h-5 mr-16">
-            <span className="w-20 text-white">Dharshan K</span>
+            <span className="w-20 text-white">
+              {localStorage.getItem("userName")}
+            </span>
           </div>
           <div className="text-black col-start-2 row-span-1 justify-center mt-1 w-4 h-5">
-            <span className="text-white text-sm">@kd_prog</span>
+            <span className="text-white text-sm">
+              @{localStorage.getItem("userID")}
+            </span>
           </div>
           <div className="col-start-3 col-span-1 ">
             <button>

@@ -9,8 +9,9 @@ import { LiaDonateSolid } from "react-icons/lia";
 import { useEffect } from "react";
 
 export default function TweetComponent(tweetContent: any) {
-  let { tweetid, writtenby, tweetwritten, createdat, hashtags } =
+  let { tweetid,userid, writtenby, tweetwritten, createdat, hashtags } =
     tweetContent.tweetContent;
+  console.log(tweetContent.tweetContent)
 
   function createTweet(tweetString: string): any {
     let tweet = tweetString.split(/\s*(?=[#@])/);
@@ -20,15 +21,17 @@ export default function TweetComponent(tweetContent: any) {
 
       if (word.startsWith("#")) {
         console.log("#",word);
+        const word2 = word.substring(1)
         const link = document.createElement('a')
-        link.href = `http://localhost:3000/tweet/${word}`
+        link.href = `http://localhost:3000/tweet/${word2}`
         link.textContent = word;
         link.setAttribute("style","color:#1d9bf0")
         span.appendChild(link)
       } else if (word.startsWith("@")) {
         console.log("@",word);
+        const word2 = word.substring(1)
         const link = document.createElement('a')
-        link.href = `http://localhost:3000/tweet/${word}`
+        link.href = `http://localhost:3000/tweet/${word2}`
         link.textContent = word;
         link.setAttribute("style","color:#1d9bf0")
         span.appendChild(link)
@@ -56,10 +59,10 @@ export default function TweetComponent(tweetContent: any) {
       </div>
       <div id="user-info" className="basis-5/6 w-96 mr-5">
         <div className="flex mt-2 mb-2">
-          <p className="text-white text-[16px] w-[100px] font-bold">
+          <p className="text-white text-[16px] w-[200px] max-w-[300px] font-bold">
             {writtenby}
           </p>
-          <p className="text-gray-700 text-[15px]">@userID</p>
+          <p className="text-gray-700 text-[15px]">@{userid}</p>
           <span className="ml-80 mt-2">
             <BsThreeDots className="text-white" />
           </span>

@@ -7,8 +7,6 @@ import { useState, useEffect } from "react";
 
 export default function MainPage() {
   const [tweets, setTweets] = useState([]);
-  console.log("welcome to main page.....");
-
   useEffect(() => {
     async function getTweets() {
       try {

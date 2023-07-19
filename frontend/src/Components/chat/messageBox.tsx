@@ -1,7 +1,37 @@
 /** @format */
+import { useState } from "react";
 import { ChatProfile } from "./profileComponent";
-import { MdOutlineSettings, MdOutlineChatBubbleOutline } from "react-icons/md";
+import {
+  MdOutlineSettings,
+  MdOutlineChatBubbleOutline,
+  MdSearch,
+} from "react-icons/md";
+import axios from "axios";
+
 export const MessageBar = () => {
+  const [inputText, setInputText] = useState("");
+  const handleChange = (event: any) => {
+    setInputText(event.target.value);
+  };
+
+  const handleKeyDown = async (event: any) => {
+    if (event.key === "Enter") {
+      if (inputText === null) {
+        return;
+      } else {
+        const data = { searchQuery: inputText };
+        const response = await axios.post(
+          "http://localhost:4000/tweet/search",
+          data
+        );
+        console.log(response.data.userQuery[0]);
+        localStorage.setItem("toUser", response.data.userQuery[0].username);
+        localStorage.setItem("toUserID", response.data.userQuery[0].userid);
+        console.log(localStorage.getItem("toUserID"));
+        setInputText("");
+      }
+    }
+  };
   return (
     <div className="overflow-y-auto">
       <div
@@ -18,7 +48,24 @@ export const MessageBar = () => {
           </span>
         </div>
       </div>
-
+      <div>
+        <div
+          id="SearchBar"
+          className="bg-[#202327] my-3 h-10 flex w-80 min-w-50px rounded-full"
+        >
+          <span className="text-[#71767b] text-2xl ml-3 mt-2">
+            <MdSearch />
+          </span>
+          <input
+            className="text-white bg-[#202327] text-lg mx-3 mt-1 outline-none"
+            id="searchBarInput"
+            value={inputText}
+            onKeyDown={handleKeyDown}
+            onChange={handleChange}
+            placeholder="Search Twitter"
+          />
+        </div>
+      </div>
       <div>
         <ChatProfile />
       </div>

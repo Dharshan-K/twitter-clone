@@ -8,12 +8,16 @@ import "./globals.css";
 import { LoginComponent } from "./Components/User/login";
 import ChatUI from "./Components/chat/page";
 import ExploreTab from "./Components/Explore/ExploreTab";
+import { SignUpComponent } from "./Components/User/signUp";
+import Hashtag from "./Components/hashtag/hashtag";
 
 const router = createBrowserRouter([
   { path: "/", element: <LoginComponent /> },
-  { path: "/home", element: <Home /> },
+  { path: "/home", element: <Home props={{ page: "Home" }} /> },
   { path: "/messages", element: <ChatUI /> },
   { path: "/explore", element: <ExploreTab /> },
+  { path: "/signUp", element: <SignUpComponent /> },
+  { path: "/tweet/:hashtag", element: <Home props={{ page: "Explore" }} /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);

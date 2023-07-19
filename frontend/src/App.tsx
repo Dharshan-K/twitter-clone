@@ -1,38 +1,24 @@
 /** @format */
-
-// import LoginComponent from "@/app/User/login";
+"use client";
 import SidebarComponent from "./Components/HomePage/Sidebar";
-import MainPage from "./Components/HomePage/mainPage";
+import HomePage from "./Components/HomePage/HomePage";
 import SuggestionsComponent from "./Components/HomePage/SuggestionsPage";
-import TweetComponent from "./Components/utils/TweetComponent";
-import SearchBar from "./Components/utils/SearchBar";
-import MainHashtag from "./Components/Explore/MainHashtag";
-import MainExplore from "./Components/Explore/MainExplore";
-import FollowComponent from "./Components/FollowBar/FollowComponent";
-import TweetEditor from "./Components/utils/TweetEditor";
-import HomeHeader from "./Components/HomePage/HomeHeader";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./globals.css";
+import "../src/Components/assets/home.css";
+import Hashtag from "./Components/hashtag/hashtag";
 
-export default function Home() {
+export default function Home(page: any) {
+  console.log(page.props.page);
   return (
     <div>
       <div className="flex">
-        <div className="basis-2/6 fixed">
+        <span id="Sidebar" className="basis-2/6">
           <SidebarComponent />
+        </span>
+        <div id="HomeBar" className="basis-2/5">
+          {page.props.page === "Home" ? <HomePage /> : <Hashtag />}
         </div>
-        <div className="basis-2/5 ml-[384px]">
-          <div>
-            <HomeHeader />
-          </div>
-          <div>
-            <TweetEditor />
-          </div>
-          <div>
-            <MainPage />
-          </div>
-        </div>
-        <div className="basis-2/6  w-[100vh] bg-black">
+        <div className="basis-2/6">
           <div className="">
             <SuggestionsComponent />
           </div>

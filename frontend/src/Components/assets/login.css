@@ -27,3 +27,12 @@
     border-width: 3px;
     outline: none
 }
+
+#SignIn-box{
+    margin: 0vh 60vh 0vh 45vh;
+    min-height: 80vh;
+    width: 120vh;
+    min-width: 50vh;
+    max-width: 150vh;
+    border-radius: 20px;
+}
