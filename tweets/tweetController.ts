@@ -10,24 +10,23 @@ export const generateUUID = () => {
 
 export const getTweets = async (req: Express.Request, res: Express.Response) => {
   const tweets = await itemsPool.query("select * from usertweets");
-  console.log(tweets.rows)
   res.status(201).send(tweets.rows)
 }
 
 export const createTweet = (req: Express.Request, res: Express.Response) => {
   const { tweet } = req.body;
+  console.log("processing tweet.........")
   const hashTags = getHastags(tweet);
   
   const users = getUsers(tweet);
-  console.log(users);
-  console.log(hashTags);
   const { userid, username } = req.User;
+  console.log(userid, username)
   const tweetID = generateUUID();
   console.log("processing the tweets.........");
 
   itemsPool.query(
-    `insert into usertweets values($1,$2,$3,$4,$5,$6,$7,$8)`,
-    [tweetID, tweet, userid, 0, 0, new Date(), hashTags,users],
+    `insert into usertweets values($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+    [tweetID, tweet, username, 0, 0, new Date(), hashTags,users,userid],
     (error: any, results: any) => {
       if (error) {
         console.log("Error executing query", error);

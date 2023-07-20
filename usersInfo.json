@@ -1,0 +1,162 @@
+[
+    {
+        "userID": "john123",
+        "userName": "John Doe",
+        "userPassword": "P@ssw0rd123!",
+        "emailID": "john.doe@example.com",
+        "dateOfBirth": "1990-01-01",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "jane456",
+        "userName": "Jane Smith",
+        "userPassword": "C0mpl3xPwd!",
+        "emailID": "jane.smith@example.com",
+        "dateOfBirth": "1985-05-10",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "mark789",
+        "userName": "Mark Johnson",
+        "userPassword": "Secr3tP@ssw0rd",
+        "emailID": "mark.johnson@example.com",
+        "dateOfBirth": "1995-11-15",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "sarah012",
+        "userName": "Sarah Davis",
+        "userPassword": "P@ssw0rd$ecure",
+        "emailID": "sarah.davis@example.com",
+        "dateOfBirth": "1992-03-25",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "alex789",
+        "userName": "Alex Wilson",
+        "userPassword": "Abc123!$ecure",
+        "emailID": "alex.wilson@example.com",
+        "dateOfBirth": "1993-07-12",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "emily456",
+        "userName": "Emily Brown",
+        "userPassword": "Qwerty123!@#",
+        "emailID": "emily.brown@example.com",
+        "dateOfBirth": "1988-09-20",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "mike123",
+        "userName": "Mike Thompson",
+        "userPassword": "P@ssw0rd!123",
+        "emailID": "mike.thompson@example.com",
+        "dateOfBirth": "1994-06-05",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "lisa789",
+        "userName": "Lisa Davis",
+        "userPassword": "P@ssword!1234",
+        "emailID": "lisa.davis@example.com",
+        "dateOfBirth": "1991-12-07",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "ryan012",
+        "userName": "Ryan Wilson",
+        "userPassword": "W3lc0me!2023",
+        "emailID": "ryan.wilson@example.com",
+        "dateOfBirth": "1997-02-14",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "jessica456",
+        "userName": "Jessica Johnson",
+        "userPassword": "Abcd1234!@#$",
+        "emailID": "jessica.johnson@example.com",
+        "dateOfBirth": "1996-04-18",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "andrew123",
+        "userName": "Andrew Smith",
+        "userPassword": "P@ssw0rd!2023",
+        "emailID": "andrew.smith@example.com",
+        "dateOfBirth": "1990-08-03",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "megan789",
+        "userName": "Megan Davis",
+        "userPassword": "Qwertyuiop!2023",
+        "emailID": "megan.davis@example.com",
+        "dateOfBirth": "1989-11-29",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "david012",
+        "userName": "David Wilson",
+        "userPassword": "P@ssword123!@#",
+        "emailID": "david.wilson@example.com",
+        "dateOfBirth": "1992-06-15",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "amanda456",
+        "userName": "Amanda Thompson",
+        "userPassword": "H3ll0!P@ssword",
+        "emailID": "amanda.thompson@example.com",
+        "dateOfBirth": "1987-03-09",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "matthew123",
+        "userName": "Matthew Brown",
+        "userPassword": "Sunsh1ne!P@ss",
+        "emailID": "matthew.brown@example.com",
+        "dateOfBirth": "1993-10-22",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "laura789",
+        "userName": "Laura Davis",
+        "userPassword": "P@ssw0rd!9876",
+        "emailID": "laura.davis@example.com",
+        "dateOfBirth": "1995-05-07",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "jason012",
+        "userName": "Jason Wilson",
+        "userPassword": "Abcdefg1!@#",
+        "emailID": "jason.wilson@example.com",
+        "dateOfBirth": "1990-07-02",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "stephanie456",
+        "userName": "Stephanie Johnson",
+        "userPassword": "T3st!P@ssw0rd",
+        "emailID": "stephanie.johnson@example.com",
+        "dateOfBirth": "1986-09-16",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "patrick123",
+        "userName": "Patrick Smith",
+        "userPassword": "P@ssword123!2023",
+        "emailID": "patrick.smith@example.com",
+        "dateOfBirth": "1994-04-11",
+        "AccessLevel": "User"
+    },
+    {
+        "userID": "olivia789",
+        "userName": "Olivia Davis",
+        "userPassword": "1qaz2wsx!P@ss",
+        "emailID": "olivia.davis@example.com",
+        "dateOfBirth": "1992-01-28",
+        "AccessLevel": "User"
+    }
+]

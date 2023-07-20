@@ -6,11 +6,13 @@ let app;
 app = Express();
 const http = require("http");
 const cors = require("cors");
+const cookie = require("cookie-parser");
 const userRouter_1 = require("./Routes/userRouter");
 const connectDB_1 = require("./data/connectDB");
 const tweetRouter_1 = require("./Routes/tweetRouter");
 const chatController_1 = require("./message/chatController");
 //Middleware
+app.use(cookie());
 app.use(cors());
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: false }));

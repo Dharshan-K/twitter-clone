@@ -7,9 +7,18 @@ import { io } from "socket.io-client";
 import { useState } from "react";
 import axios from "axios";
 
-export default function ChatBox() {
+export interface messageInterface {
+  [index: string]: any;
+  user_from: string;
+  user_to: string;
+  message_data: string;
+  posted_at: string;
+}
+
+export default function ChatBox(props: { messages: messageInterface }) {
   const [message, setMessage] = useState("");
   const [messageArray, setMessageArray] = useState([]);
+  console.log("props.messages", props.messages);
   const sendMessage = () => {
     var socket = io("http://localhost:4000");
     socket.on("connect", () => {
@@ -29,12 +38,25 @@ export default function ChatBox() {
     }
   };
 
-  const getMessage = async () => {
-    // const data = {
-    //     from:
-    // }
-    // const messages = await axios.get("http://localhost:4000/tweet/messages", data)
+  const messages = () => {
+    const messages = props.messages;
+    messages.map((message: messageInterface, index: string) => {
+      console.log(message);
+    });
   };
+
+  // const getMessage = async () => {
+  //   const data = {
+  //     from: localStorage.getItem("userName"),
+  //     to: localStorage.getItem("toUser"),
+  //   };
+  //   console.log(data);
+  //   const messages = await axios.post(
+  //     "http://localhost:4000/tweet/messages",
+  //     data
+  //   );
+  //   console.log(messages);
+  // };
 
   return (
     <div className="bg-black w-[575px] h-[56px] fixed bottom-0 rounded-lg">
@@ -59,7 +81,7 @@ export default function ChatBox() {
             }}
           />
 
-          <button onClick={sendMessage}>
+          <button onClick={messages}>
             <AiOutlineSend
               id="sendButton"
               className="basis-1/6 w-32 text-white text-2xl"

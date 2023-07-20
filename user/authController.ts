@@ -21,10 +21,6 @@ export const login = (req: Express.Request, res: Express.Response): void => {
         res.status(201).json({ message: "try another username" });
         return;
       } else if (doesExist === true) {
-        console.log("verifying password..........");
-        console.log("results", results);
-        console.log(userpassword, results.userpassword);
-        console.log(await bcrypt.compare(userpassword, results.userpassword));
         if (
           results &&
           (await bcrypt.compare(userpassword, results.userpassword))
@@ -36,16 +32,13 @@ export const login = (req: Express.Request, res: Express.Response): void => {
           };
           if (bearerType) {
             const token = encode(bearerType);
-            console.log(token);
             req.headers.authorization = token;
-            res.cookie("userID", results.userid, {
-              maxAge: 60 * 60 * 24 * 10 * 1000,
+            res.status(200).json({
+              userID: results.userid,
+              userName: results.username,
+              userEmail: results.emailid,
+              token: token,
             });
-            res.cookie("userEmail", results.emailid, {
-              maxAge: 60 * 60 * 24 * 10 * 1000,
-            });
-            console.log("user logged in");
-            res.status(200).json({ message: "user logged in" });
             return;
           }
         }
@@ -90,7 +83,7 @@ export const signUp = async (
     userid: userid,
     username: username,
     email: emailid,
-    dob: new Date(dateofbirth),
+    dob: new Date(dateofbirth.startDate),
     passwordhash: password,
     accesslevel: accesslevel,
   };
@@ -104,7 +97,7 @@ export const signUp = async (
       } else if (doesExist === false) {
         insertUser(data);
         console.log("user created");
-        res.status(400).json({ message: "user created" });
+        res.status(200).json({ message: "user created" });
         return;
       } else if (doesExist === true) {
         console.log("user already exist");

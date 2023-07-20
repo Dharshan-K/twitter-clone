@@ -19,20 +19,19 @@ const generateUUID = () => {
 exports.generateUUID = generateUUID;
 const getTweets = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tweets = yield connectDB_1.itemsPool.query("select * from usertweets");
-    console.log(tweets.rows);
     res.status(201).send(tweets.rows);
 });
 exports.getTweets = getTweets;
 const createTweet = (req, res) => {
     const { tweet } = req.body;
+    console.log("processing tweet.........");
     const hashTags = getHastags(tweet);
     const users = getUsers(tweet);
-    console.log(users);
-    console.log(hashTags);
     const { userid, username } = req.User;
+    console.log(userid, username);
     const tweetID = (0, exports.generateUUID)();
     console.log("processing the tweets.........");
-    connectDB_1.itemsPool.query(`insert into usertweets values($1,$2,$3,$4,$5,$6,$7,$8)`, [tweetID, tweet, userid, 0, 0, new Date(), hashTags, users], (error, results) => {
+    connectDB_1.itemsPool.query(`insert into usertweets values($1,$2,$3,$4,$5,$6,$7,$8,$9)`, [tweetID, tweet, username, 0, 0, new Date(), hashTags, users, userid], (error, results) => {
         if (error) {
             console.log("Error executing query", error);
             res.status(400).json({ message: "erro" });

@@ -13,7 +13,6 @@ const queryUser = (req, res) => {
             console.error("Error executing query", error);
             return;
         }
-        console.log("Query results:", results.rows);
         res.status(400).send(results);
     });
 };
@@ -43,9 +42,7 @@ const deleteUser = (req, res) => {
 };
 exports.deleteUser = deleteUser;
 const findUser = (userID, emailid, callback) => {
-    console.log("userID, emailid", userID, emailid);
     connectDB_1.itemsPool.query(`select * from userdata where userid=$1 or emailid=$2;`, [userID, emailid], (error, results) => {
-        console.log(results.rows);
         if (error) {
             callback(error, null, null);
             return;

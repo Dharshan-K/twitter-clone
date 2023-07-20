@@ -10,6 +10,7 @@ import ChatUI from "./Components/chat/page";
 import ExploreTab from "./Components/Explore/ExploreTab";
 import { SignUpComponent } from "./Components/User/signUp";
 import Hashtag from "./Components/hashtag/hashtag";
+import Dropdown from "./Components/utils/Dropdown";
 
 const router = createBrowserRouter([
   { path: "/", element: <LoginComponent /> },
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
   { path: "/explore", element: <ExploreTab /> },
   { path: "/signUp", element: <SignUpComponent /> },
   { path: "/tweet/:hashtag", element: <Home props={{ page: "Explore" }} /> },
+  { path: "/dropdown", element: <Dropdown /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);

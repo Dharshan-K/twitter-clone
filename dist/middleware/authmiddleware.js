@@ -8,7 +8,9 @@ require("dotenv").config();
 const authUser = (req, res, next) => {
     var _a;
     let token;
+    console.log("req.headers.authorization", req.headers.authorization);
     const verifyToken = ((_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.toString()) || " ";
+    console.log(verifyToken);
     if (verifyToken && verifyToken.startsWith("Bearer")) {
         try {
             token = verifyToken.split(" ")[1];

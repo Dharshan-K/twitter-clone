@@ -9,18 +9,23 @@ import {
 } from "react-icons/md";
 import { GoBell } from "react-icons/go";
 import { BsHouseDoor, BsThreeDots } from "react-icons/bs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SidebarComponent() {
-  const getUserName = () => {
-    // console.log("document.cookie", document.cookie);
-    // const user = document.cookie.split(";");
-    // console.log(user);
+  const [dropDown, setDropDown] = useState(false);
+  const toLogin = useNavigate();
+  const manageDropdown = () => {
+    setDropDown(!dropDown);
+  };
+  const handleSignOut = () => {
+    localStorage.removeItem("userID");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("UserEmail");
+    toLogin("/", { replace: true });
   };
 
-  useEffect(() => {
-    getUserName();
-  }, []);
   const styles = {
     "sidebar-Links": "text-white ml-24 mt-10 mb-10 text-xl",
     "tweet-button":
@@ -95,9 +100,26 @@ export default function SidebarComponent() {
             </span>
           </div>
           <div className="col-start-3 col-span-1 ">
-            <button>
+            <button onClick={manageDropdown}>
               <BsThreeDots className="text-white" />
             </button>
+            {dropDown && (
+              <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg  ring-1 ring-black ring-opacity-5">
+                <div
+                  className="py-1 bg-black text-white"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  <button
+                    className="block px-4 py-2 text-sm  w-full text-left"
+                    onClick={() => handleSignOut()}
+                  >
+                    SignOut
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

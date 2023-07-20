@@ -1,15 +1,18 @@
 /** @format */
 import { useState } from "react";
-import { ChatProfile } from "./profileComponent";
+
 import {
   MdOutlineSettings,
   MdOutlineChatBubbleOutline,
   MdSearch,
 } from "react-icons/md";
 import axios from "axios";
+import { useEffect } from "react";
+import { ChatProfile } from "./profileComponent";
 
 export const MessageBar = () => {
   const [inputText, setInputText] = useState("");
+
   const handleChange = (event: any) => {
     setInputText(event.target.value);
   };
@@ -36,7 +39,7 @@ export const MessageBar = () => {
     <div className="overflow-y-auto">
       <div
         id="messageHeader"
-        className="max-w-[371px] max-h-[53px] bg-black text-white flex p-2"
+        className="max-w-[371px] max-h-screen  bg-black text-white flex p-2"
       >
         <div className="basis-4/5  font-bold m-2">Messages</div>
         <div className="basis-1/5 flex text-2xl ">
@@ -65,66 +68,6 @@ export const MessageBar = () => {
             placeholder="Search Twitter"
           />
         </div>
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
-      </div>
-      <div>
-        <ChatProfile />
       </div>
     </div>
   );

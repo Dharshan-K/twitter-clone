@@ -5,6 +5,7 @@ let app: Express.Application;
 app = Express();
 const http = require("http");
 const cors = require("cors");
+const cookie = require("cookie-parser");
 import { Server, Socket } from "socket.io";
 import { userRouter } from "./Routes/userRouter";
 import { itemsPool, connectMongo } from "./data/connectDB";
@@ -13,6 +14,7 @@ import { tweetRouter } from "./Routes/tweetRouter";
 import { connectSocket } from "./message/chatController";
 
 //Middleware
+app.use(cookie());
 app.use(cors());
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: false }));

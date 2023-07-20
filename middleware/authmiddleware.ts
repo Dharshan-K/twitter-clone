@@ -12,7 +12,9 @@ export const authUser = (
   next: Express.NextFunction
 ) => {
   let token;
+  console.log("req.headers.authorization", req.headers.authorization);
   const verifyToken = req.headers.authorization?.toString() || " ";
+  console.log(verifyToken);
   if (verifyToken && verifyToken.startsWith("Bearer")) {
     try {
       token = verifyToken.split(" ")[1];

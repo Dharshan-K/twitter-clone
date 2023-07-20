@@ -1,6 +1,9 @@
 /** @format */
+import axios from "axios";
+import { useEffect } from "react";
 import { BsThreeDots } from "react-icons/bs";
-export const ChatProfile = () => {
+
+export const ChatProfile = (props: { user: string }) => {
   return (
     <div className="flex bg-black text-white m-2 min-height-screen max-w-[371px]">
       <div id="profilepicture" className="basis-[50px]">
@@ -11,8 +14,8 @@ export const ChatProfile = () => {
       </div>
       <div className="grid grid-row-2 basis-[40vh]">
         <div className="row-span-1">
-          <span>Dharshan</span>
-          <span>kd_prog</span>
+          <span className="w-[100px]">{props.user}</span>
+          <span>@{localStorage.getItem("userID")}</span>
         </div>
         <div className="row-span-1">
           <span>how are you</span>

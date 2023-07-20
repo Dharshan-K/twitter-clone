@@ -28,10 +28,6 @@ const login = (req, res) => {
                 return;
             }
             else if (doesExist === true) {
-                console.log("verifying password..........");
-                console.log("results", results);
-                console.log(userpassword, results.userpassword);
-                console.log(yield bcrypt.compare(userpassword, results.userpassword));
                 if (results &&
                     (yield bcrypt.compare(userpassword, results.userpassword))) {
                     const bearerType = {
@@ -41,16 +37,13 @@ const login = (req, res) => {
                     };
                     if (bearerType) {
                         const token = (0, authmiddleware_1.encode)(bearerType);
-                        console.log(token);
                         req.headers.authorization = token;
-                        res.cookie("userID", results.userid, {
-                            maxAge: 60 * 60 * 24 * 10 * 1000,
+                        res.status(200).json({
+                            userID: results.userid,
+                            userName: results.username,
+                            userEmail: results.emailid,
+                            token: token,
                         });
-                        res.cookie("userEmail", results.emailid, {
-                            maxAge: 60 * 60 * 24 * 10 * 1000,
-                        });
-                        console.log("user logged in");
-                        res.status(200).json({ message: "user logged in" });
                         return;
                     }
                 }
@@ -90,7 +83,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         userid: userid,
         username: username,
         email: emailid,
-        dob: new Date(dateofbirth),
+        dob: new Date(dateofbirth.startDate),
         passwordhash: password,
         accesslevel: accesslevel,
     };
@@ -104,7 +97,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             else if (doesExist === false) {
                 (0, userController_1.insertUser)(data);
                 console.log("user created");
-                res.status(400).json({ message: "user created" });
+                res.status(200).json({ message: "user created" });
                 return;
             }
             else if (doesExist === true) {
