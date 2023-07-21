@@ -18,3 +18,5 @@ tweetRouter.route("/search").post(searchAPI_1.searchAPI);
 tweetRouter.route("/home").get(tweetController_1.getTweets);
 tweetRouter.route("/messages").post(chatController_1.getMessages);
 tweetRouter.route("/hashtag").post(hashtagController_1.getHashTags);
+tweetRouter.route("/friends").get(chatController_1.getUsers);
+tweetRouter.route("/like/:id").post(tweetController_1.postLike);

@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createTweet = exports.getTweets = exports.generateUUID = void 0;
+exports.postLike = exports.createTweet = exports.getTweets = exports.generateUUID = void 0;
 const connectDB_1 = require("../data/connectDB");
 const uuid_1 = require("uuid");
 const generateUUID = () => {
@@ -53,3 +53,11 @@ function getUsers(tweetString) {
     const users = tweetString.match(checkUser);
     return users;
 }
+const postLike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    console.log("id", id);
+    yield connectDB_1.itemsPool.query("update usertweets set likes=likes+1 where tweetid=$1;", [id]);
+    const likesCount = yield connectDB_1.itemsPool.query("select likes from usertweets where tweetid=$1", [id]);
+    res.status(201).send(likesCount);
+});
+exports.postLike = postLike;

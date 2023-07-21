@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMessages = exports.storeMessage = exports.connectSocket = void 0;
+exports.getUsers = exports.getMessages = exports.storeMessage = exports.connectSocket = void 0;
 const socket_io_1 = require("socket.io");
 const express = require("express");
 const connectDB_1 = require("../data/connectDB");
@@ -45,13 +45,21 @@ exports.storeMessage = storeMessage;
 const getMessages = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { from, to } = req.body;
     console.log(from, to);
-    if (to) {
-        var messages = yield connectDB_1.itemsPool.query("select * from chatdata where user_from=$1 and user_to=$2 order by posted_at asc", [from, to]);
-    }
-    else {
-        messages = yield connectDB_1.itemsPool.query("select * from chatdata where user_from=$1 or user_to=$2 order by posted_at asc", [from, to]);
-    }
-    console.log("messages", messages.rows);
+    const messages = yield connectDB_1.itemsPool.query("select * from chatdata where (user_from=$1 and user_to=$2) or (user_from=$3 and user_to=$4) order by posted_at asc", [from, to, to, from]);
     res.status(201).send(messages.rows);
 });
 exports.getMessages = getMessages;
+const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = req.query.user;
+    console.log("user", user);
+    if (user) {
+        var response = yield connectDB_1.itemsPool.query("select * from chatdata where user_from=$1 order by posted_at desc limit 1;", [user]);
+        console.log("response.rows", response.rows);
+    }
+    else {
+        res.status(200).send("");
+        return;
+    }
+    res.status(201).send(response.rows);
+});
+exports.getUsers = getUsers;

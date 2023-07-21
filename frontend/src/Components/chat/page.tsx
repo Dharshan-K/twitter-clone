@@ -1,50 +1,56 @@
 /** @format */
 
-import ChatBox from "./ChatBox";
-import { MessageBar } from "./messageBox";
+import ChatBox, { messageInterface } from "./ChatBox";
+import { MessageBar } from "./messageHeader";
 import SidebarComponent from "../HomePage/Sidebar";
 import { useState, useEffect } from "react";
 import { ChatProfile } from "./profileComponent";
 import axios from "axios";
 
 export default function ChatUI() {
+  const [clicked, setClicked] = useState(false);
   const [users, setUsers] = useState([
     {
       user_from: "",
       user_to: "",
       message_data: "",
       posted_at: Date(),
+      indexno: 0,
     },
   ]);
-  const [messages, setMessages] = useState({
-    user_from: "",
-    user_to: "",
-    message_data: "",
-    posted_at: Date(),
-  });
+  const [messages, setMessages] = useState<messageInterface[]>([
+    {
+      user_from: "",
+      user_to: "",
+      message_data: "",
+      posted_at: Date(),
+      indexno: 0,
+    },
+  ]);
 
-  const selectUser = async (userName: string) => {
-    console.log("userName", userName);
-    const data = { from: localStorage.getItem("userName"), to: userName };
-    const userConversations = await axios.post(
-      "http://localhost:4000/tweet/messages",
-      data
-    );
-    console.log("userConversations.data", userConversations.data);
-    setMessages(userConversations.data);
+  const selectUser = (userName: string) => {
+    const selectedUser = async (userName: string) => {
+      const data = { from: localStorage.getItem("userName"), to: userName };
+      const userConversations = await axios.post(
+        "http://localhost:4000/tweet/messages",
+        data
+      );
+      setMessages(userConversations.data);
+    };
+    selectedUser(userName);
+    setClicked(true);
   };
 
   useEffect(() => {
     const getMessages = async () => {
-      const data = {
-        from: localStorage.getItem("userName"),
-        to: null,
-      };
-      const conversation = await axios.post(
-        "http://localhost:4000/tweet/messages",
-        data
+      const conversation = await axios.get(
+        "http://localhost:4000/tweet/friends",
+        {
+          params: {
+            user: localStorage.getItem("userName"),
+          },
+        }
       );
-
       setUsers(conversation.data);
     };
     getMessages();
@@ -70,8 +76,12 @@ export default function ChatUI() {
           ))}
         </div>
       </div>
-      <div className="basis-1/4">
-        <ChatBox messages={messages} />
+      <div className="basis-2/4 bg-black">
+        {clicked ? (
+          <ChatBox messages={messages} />
+        ) : (
+          <div className="bg-black min-h-screen"></div>
+        )}
       </div>
     </div>
   );

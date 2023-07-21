@@ -5,6 +5,7 @@ const express = require("express");
 
 import { createServer } from "http";
 import { itemsPool } from "../data/connectDB";
+import { response } from "express";
 const cors = require("cors");
 export const connectSocket = (inputServer: Express.Application) => {
   const io = new Server(inputServer, {
@@ -41,17 +42,25 @@ export const storeMessage = async (
 export const getMessages = async (req: any, res: any) => {
   const { from, to } = req.body;
   console.log(from, to);
-  if (to) {
-    var messages = await itemsPool.query(
-      "select * from chatdata where user_from=$1 and user_to=$2 order by posted_at asc",
-      [from, to]
-    );
-  } else {
-    messages = await itemsPool.query(
-      "select * from chatdata where user_from=$1 or user_to=$2 order by posted_at asc",
-      [from, to]
-    );
-  }
-  console.log("messages", messages.rows);
+  const messages = await itemsPool.query(
+    "select * from chatdata where (user_from=$1 and user_to=$2) or (user_from=$3 and user_to=$4) order by posted_at asc",
+    [from, to, to, from]
+  );
   res.status(201).send(messages.rows);
+};
+
+export const getUsers = async (req: any, res: any) => {
+  const user = req.query.user;
+  console.log("user", user);
+  if (user) {
+    var response = await itemsPool.query(
+      "select * from chatdata where user_from=$1 order by posted_at desc limit 1;",
+      [user]
+    );
+    console.log("response.rows", response.rows);
+  } else {
+    res.status(200).send("");
+    return;
+  }
+  res.status(201).send(response.rows);
 };

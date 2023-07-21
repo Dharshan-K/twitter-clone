@@ -13,15 +13,15 @@ export const ChatProfile = (props: { user: string }) => {
         />
       </div>
       <div className="grid grid-row-2 basis-[40vh]">
-        <div className="row-span-1">
+        <div className="row-span-1 flex">
           <span className="w-[100px]">{props.user}</span>
-          <span>@{localStorage.getItem("userID")}</span>
+          <span>@{props.user}</span>
         </div>
-        <div className="row-span-1">
+        <div className="row-span-1 pr-16">
           <span>how are you</span>
         </div>
       </div>
-      <div className="basis-[30px]">
+      <div className="basis-[30px] pl-16">
         <BsThreeDots />
       </div>
     </div>

@@ -6,12 +6,21 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import { FiShare } from "react-icons/fi";
 import { VscGraph } from "react-icons/vsc";
 import { LiaDonateSolid } from "react-icons/lia";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
+import axios from "axios";
 
 export default function TweetComponent(tweetContent: any) {
-  let { tweetid,userid, writtenby, tweetwritten, createdat, hashtags } =
+  let { tweetid,userid, writtenby, tweetwritten, createdat, hashtags,likes } =
     tweetContent.tweetContent;
   console.log(tweetContent.tweetContent)
+  const [likesCount,setLikesCount] = useState(likes) 
+
+  const handleLike = async(id:string)=>{
+    // const config = {params:{id:id}}
+    const response = await axios.post(`http://localhost:4000/tweet/like/${id}`)
+    console.log("liked");
+    setLikesCount(response.data.likesCount);
+  }
 
   function createTweet(tweetString: string): any {
     let tweet = tweetString.split(/\s*(?=[#@])/);
@@ -85,9 +94,9 @@ export default function TweetComponent(tweetContent: any) {
           id="tweet-footer"
           className="text-slate-500 text-[17px] flex mt-4 ml-5 hover: text-pink-600"
         >
-          <button className="flex w-24 text-slate-500 hover:text-pink-600 ">
+          <button className="flex w-24 text-slate-500 hover:text-pink-600 " onClick={()=>{handleLike(tweetid)}}>
             <FaRegHeart className="my-1" />
-            <p className="text-[13px] px-2 pt-1">340</p>
+            <p className="text-[13px] px-2 pt-1">{likesCount}</p>
           </button>
           <button className="flex w-24 text-slate-500 hover:text-green-600">
             <AiOutlineRetweet className="my-1 text-[20px]" />

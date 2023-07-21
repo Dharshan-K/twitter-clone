@@ -27,7 +27,6 @@ export const MessageBar = () => {
           "http://localhost:4000/tweet/search",
           data
         );
-        console.log(response.data.userQuery[0]);
         localStorage.setItem("toUser", response.data.userQuery[0].username);
         localStorage.setItem("toUserID", response.data.userQuery[0].userid);
         console.log(localStorage.getItem("toUserID"));

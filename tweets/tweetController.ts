@@ -53,4 +53,12 @@ function getUsers(tweetString: String): RegExpMatchArray | null {
   return users;
 }
 
+export const postLike = async (req:Express.Request,res:Express.Response)=>{
+  const id = req.params.id
+  console.log("id",id)
+  await itemsPool.query("update usertweets set likes=likes+1 where tweetid=$1;",[id])
+  const likesCount = await itemsPool.query("select likes from usertweets where tweetid=$1",[id])
+  res.status(201).send(likesCount)
+}
+
 

@@ -5,6 +5,7 @@ import { FaTwitter } from "react-icons/fa6";
 import "../../Components/assets/login.css";
 import axios from "axios";
 import Datepicker from "react-tailwindcss-datepicker";
+import { useNavigate } from "react-router-dom";
 
 export const SignUpComponent = () => {
   const [userName, setUserName]: [
@@ -23,6 +24,7 @@ export const SignUpComponent = () => {
     string,
     React.Dispatch<React.SetStateAction<string>>
   ] = useState("");
+  const toHome = useNavigate();
 
   const [userDOB, setUserDOB] = useState({
     startDate: null,
@@ -41,6 +43,7 @@ export const SignUpComponent = () => {
     };
     console.log(data);
     await axios.post("http://localhost:4000/signUP", data);
+    toHome("/home", { replace: true });
   };
 
   const handleValueChange = (newValue: any) => {
