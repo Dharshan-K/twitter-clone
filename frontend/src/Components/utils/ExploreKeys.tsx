@@ -7,7 +7,9 @@ export default function ExploreKeysTab() {
 
   useEffect(() => {
     const getHashtags = async () => {
-      const response = await axios.get(`http://localhost:4000/hashtag/${tab}`);
+      const response = await axios.get(
+        `http://twitter-backend-rcbd.onrender.com/hashtag/${tab}`
+      );
     };
 
     getHashtags();
