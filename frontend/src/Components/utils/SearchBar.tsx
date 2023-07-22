@@ -22,7 +22,7 @@ export default function SearchBar() {
       } else {
         const data = { searchQuery: searchQuery };
         const response = await axios.post(
-          "https://twitter-backend-c831.onrender.com/tweet/search",
+          "https://twitter-backend-rcbd.onrender.com/tweet/search",
           data
         );
 

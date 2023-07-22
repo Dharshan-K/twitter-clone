@@ -15,7 +15,7 @@ export default function TweetComponent(tweetContent: any) {
   const [likesCount,setLikesCount] = useState(likes) 
 
   const handleLike = async(id:string)=>{
-    const response = await axios.post(`https://twitter-backend-c831.onrender.com/tweet/like/${id}`)
+    const response = await axios.post(`https://twitter-backend-rcbd.onrender.com/tweet/like/${id}`)
     setLikesCount(response.data.likesCount);
   }
 
@@ -29,7 +29,7 @@ export default function TweetComponent(tweetContent: any) {
       if (word.startsWith("#")) {
         const word2 = word.substring(1)
         const link = document.createElement('a')
-        link.href = `https://twitter-backend-c831.onrender.com/tweet/${word2}`
+        link.href = `https://twitter-backend-rcbd.onrender.com/tweet/${word2}`
         link.textContent = word;
         link.setAttribute("style","color:#1d9bf0")
         span.appendChild(link)
@@ -37,7 +37,7 @@ export default function TweetComponent(tweetContent: any) {
         
         const word2 = word.substring(1)
         const link = document.createElement('a')
-        link.href = `https://twitter-backend-c831.onrender.com/tweet/${word2}`
+        link.href = `https://twitter-backend-rcbd.onrender.com/tweet/${word2}`
         link.textContent = word;
         link.setAttribute("style","color:#1d9bf0")
         span.appendChild(link)
@@ -98,7 +98,7 @@ export default function TweetComponent(tweetContent: any) {
             <AiOutlineRetweet className="my-1 text-[20px]" />
             <p className="text-[13px] px-2 pt-1">340</p>
           </button>
-          <a href={`https://twitter-backend-c831.onrender.com/comments/${tweetid}`} className="flex w-24 text-slate-500 hover:text-blue-600">
+          <a href={`https://twitter-frontend-c831.onrender.com/comments/${tweetid}`} className="flex w-24 text-slate-500 hover:text-blue-600">
             <FaRegComment className="my-1" />
             <p className="text-[13px] px-2 pt-1">340</p>
           </a>

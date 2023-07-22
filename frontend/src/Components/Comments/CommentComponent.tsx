@@ -32,7 +32,7 @@ export const CommentComponent = (props: { id: string }) => {
       userID: localStorage.getItem("userID"),
     };
     const response = await axios.post(
-      "https://twitter-backend-c831.onrender.com/tweet/addComment",
+      "https://twitter-backend-rcbd.onrender.com/tweet/addComment",
       data
     );
   };
@@ -41,7 +41,7 @@ export const CommentComponent = (props: { id: string }) => {
   useEffect(() => {
     const getComments = async () => {
       const response = await axios.get(
-        `https://twitter-backend-c831.onrender.com/tweet/${props.id}`
+        `https://twitter-backend-rcbd.onrender.com/tweet/${props.id}`
       );
       setComment(response.data.Comment);
     };

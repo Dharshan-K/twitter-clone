@@ -41,7 +41,7 @@ export const SignUpComponent = () => {
       dateofbirth: userDOB,
       accesslevel: "User",
     };
-    await axios.post("https://twitter-backend-c831.onrender.com/signUP", data);
+    await axios.post("https://twitter-backend-rcbd.onrender.com/signUP", data);
     toHome("/home", { replace: true });
   };
 

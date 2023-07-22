@@ -21,7 +21,7 @@ export default function TweetEditor() {
 
     await axios
       .post(
-        "https://twitter-backend-c831.onrender.com/tweet/insertTweet",
+        "https://twitter-backend-rcbd.onrender.com/tweet/insertTweet",
         data,
         config
       )
