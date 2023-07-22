@@ -36,7 +36,7 @@ export default function MainPage() {
     async function getTweets() {
       try {
         const response = await axios.get(
-          "http://twitter-backend-rcbd.onrender.com/tweet/home"
+          "https://twitter-backend-c831.onrender.com/tweet/home"
         );
         setTweets(response.data);
       } catch (error) {
@@ -49,7 +49,7 @@ export default function MainPage() {
   return (
     <div>
       {tweets.map((tweet: Tweet, index) => (
-        <a href={`http://twitter-backend-rcbd.onrender.com/${tweet.tweetid}`}>
+        <a href={`https://twitter-backend-c831.onrender.com/${tweet.tweetid}`}>
           <TweetComponent tweetContent={tweet} key={index} />
         </a>
       ))}

@@ -49,7 +49,7 @@ export const LoginComponent = () => {
     e.preventDefault();
 
     const response = await axios.post(
-      "http://twitter-backend-rcbd.onrender.com/login",
+      "https://twitter-backend-c831.onrender.com/login",
       data
     );
     console.log("response.headers", response.data);
@@ -111,7 +111,7 @@ export const LoginComponent = () => {
               >
                 Dont have an account?
                 <a
-                  href="http://twitter-backend-rcbd.onrender.com/signUp"
+                  href="https://twitter-frontend-c831.onrender.com/signUp"
                   className="text-blue-400"
                 >
                   Sign Up

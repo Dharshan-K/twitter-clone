@@ -24,7 +24,7 @@ export const MessageBar = () => {
       } else {
         const data = { searchQuery: inputText };
         const response = await axios.post(
-          "http://twitter-backend-rcbd.onrender.com/tweet/search",
+          "https://twitter-backend-c831.onrender.com/tweet/search",
           data
         );
         localStorage.setItem("toUser", response.data.userQuery[0].username);

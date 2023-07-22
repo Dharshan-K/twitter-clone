@@ -32,7 +32,7 @@ export default function ChatUI() {
     const selectedUser = async (userName: string) => {
       const data = { from: localStorage.getItem("userName"), to: userName };
       const userConversations = await axios.post(
-        "http://twitter-backend-rcbd.onrender.com/tweet/messages",
+        "https://twitter-backend-c831.onrender.com/tweet/messages",
         data
       );
       setMessages(userConversations.data);
@@ -44,7 +44,7 @@ export default function ChatUI() {
   useEffect(() => {
     const getMessages = async () => {
       const conversation = await axios.get(
-        "http://twitter-backend-rcbd.onrender.com/tweet/friends",
+        "https://twitter-backend-c831.onrender.com/tweet/friends",
         {
           params: {
             user: localStorage.getItem("userName"),
