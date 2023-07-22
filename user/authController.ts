@@ -10,7 +10,6 @@ import * as bcrypt from "bcrypt";
 
 export const login = (req: Express.Request, res: Express.Response): void => {
   const { userid, emailid, userpassword } = req.body;
-  console.log("userid, emailid, userpassword", userid, emailid, userpassword);
   if ((userid! || emailid!) && userpassword) {
     findUser(userid, emailid, async (error, results, doesExist) => {
       if (error) {

@@ -32,19 +32,16 @@ const connectSocket = (inputServer) => {
 };
 exports.connectSocket = connectSocket;
 const storeMessage = (from, to, message) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(from, to, message);
     yield connectDB_1.itemsPool.query("insert into chatdata values ($1,$2,$3,$4);", [
         from,
         to,
         message,
         new Date(),
     ]);
-    console.log("chat registered");
 });
 exports.storeMessage = storeMessage;
 const getMessages = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { from, to } = req.body;
-    console.log(from, to);
     const messages = yield connectDB_1.itemsPool.query("select * from chatdata where (user_from=$1 and user_to=$2) or (user_from=$3 and user_to=$4) order by posted_at asc", [from, to, to, from]);
     res.status(201).send(messages.rows);
 });

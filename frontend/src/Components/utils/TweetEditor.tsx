@@ -18,8 +18,7 @@ export default function TweetEditor() {
         authorization: `${localStorage.getItem("token")}`,
       },
     };
-    console.log("sending tweet...........");
-    console.log(tweet);
+
     await axios
       .post("http://localhost:4000/tweet/insertTweet", data, config)
       .then((response) => {

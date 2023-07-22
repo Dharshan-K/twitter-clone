@@ -14,7 +14,6 @@ exports.getUserQuery = exports.getSearchQuery = exports.searchAPI = void 0;
 const connectDB_1 = require("../../data/connectDB");
 const searchAPI = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { searchQuery } = req.body;
-    console.log("searchQuery", searchQuery);
     const search = yield (0, exports.getSearchQuery)(searchQuery);
     const userSearch = yield (0, exports.getUserQuery)(searchQuery);
     res.status(201).send({ tweetQuery: search, userQuery: userSearch });

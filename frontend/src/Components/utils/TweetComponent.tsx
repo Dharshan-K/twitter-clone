@@ -12,24 +12,21 @@ import axios from "axios";
 export default function TweetComponent(tweetContent: any) {
   let { tweetid,userid, writtenby, tweetwritten, createdat, hashtags,likes } =
     tweetContent.tweetContent;
-  console.log(tweetContent.tweetContent)
   const [likesCount,setLikesCount] = useState(likes) 
 
   const handleLike = async(id:string)=>{
-    // const config = {params:{id:id}}
     const response = await axios.post(`http://localhost:4000/tweet/like/${id}`)
-    console.log("liked");
     setLikesCount(response.data.likesCount);
   }
 
   function createTweet(tweetString: string): any {
     let tweet = tweetString.split(/\s*(?=[#@])/);
+    
     const tweetContainer = document.createElement('div')
     tweet.forEach((word: string) => {
       const span = document.createElement('span')
 
       if (word.startsWith("#")) {
-        console.log("#",word);
         const word2 = word.substring(1)
         const link = document.createElement('a')
         link.href = `http://localhost:3000/tweet/${word2}`
@@ -37,7 +34,7 @@ export default function TweetComponent(tweetContent: any) {
         link.setAttribute("style","color:#1d9bf0")
         span.appendChild(link)
       } else if (word.startsWith("@")) {
-        console.log("@",word);
+        
         const word2 = word.substring(1)
         const link = document.createElement('a')
         link.href = `http://localhost:3000/tweet/${word2}`
@@ -45,7 +42,6 @@ export default function TweetComponent(tweetContent: any) {
         link.setAttribute("style","color:#1d9bf0")
         span.appendChild(link)
       } else {
-        console.log("word",word);
         span.textContent = word;
       }
       tweetContainer.appendChild(span);
@@ -102,10 +98,10 @@ export default function TweetComponent(tweetContent: any) {
             <AiOutlineRetweet className="my-1 text-[20px]" />
             <p className="text-[13px] px-2 pt-1">340</p>
           </button>
-          <button className="flex w-24 text-slate-500 hover:text-blue-600">
+          <a href={`http://localhost:3000/comments/${tweetid}`} className="flex w-24 text-slate-500 hover:text-blue-600">
             <FaRegComment className="my-1" />
             <p className="text-[13px] px-2 pt-1">340</p>
-          </button>
+          </a>
           <button className="flex w-16 text-slate-500 hover:text-blue-600">
             <VscGraph className="my-1 text-[17px]" />
           </button>

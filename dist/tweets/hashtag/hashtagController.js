@@ -13,9 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getHashTags = exports.getHashTag = void 0;
 const connectDB_1 = require("../../data/connectDB");
 const getHashTag = (req, res) => {
-    console.log("getting hashtags..........");
     const { hashTag } = req.body;
-    console.log(hashTag);
     if (hashTag) {
         try {
             const queryhash = queryHashTag(hashTag);
@@ -37,10 +35,8 @@ const getHashTags = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.getHashTags = getHashTags;
 function queryHashTag(tagNumber) {
-    console.log("getting into query........");
     const hashQuery = connectDB_1.itemsPool.query("select * from hashData where tag=$1", [
         tagNumber,
     ]);
-    console.log(hashQuery);
     return hashQuery;
 }

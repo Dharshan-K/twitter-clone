@@ -16,8 +16,6 @@ export default function SearchBar() {
   };
 
   const handleKeyDown = async (event: any) => {
-    console.log("query started.........");
-    console.log(searchQuery);
     if (event.key === "Enter") {
       if (searchQuery === null) {
         return;
@@ -27,7 +25,7 @@ export default function SearchBar() {
           "http://localhost:4000/tweet/search",
           data
         );
-        console.log(response.data.userQuery[0]);
+
         localStorage.setItem("userData", response.data.userQuery[0]);
       }
       setsearchQuery("");

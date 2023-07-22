@@ -11,7 +11,6 @@ const Dropdown = () => {
   };
 
   const handleOptionSelect = (option: any) => {
-    console.log("Selected option:", option);
     setIsOpen(false);
   };
 

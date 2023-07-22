@@ -4,9 +4,7 @@ import { AiOutlineSend, AiOutlinePicture } from "react-icons/ai";
 import { HiOutlineGif } from "react-icons/hi2";
 import { BsEmojiSmile } from "react-icons/bs";
 import { io } from "socket.io-client";
-import { useEffect, useState } from "react";
-import axios from "axios";
-// import { ChatDisplay } from "./chatDisplay";
+import { useState } from "react";
 
 export interface messageInterface {
   user_from: string;
@@ -18,8 +16,6 @@ export interface messageInterface {
 
 export default function ChatBox(props: { messages: messageInterface[] }) {
   const [message, setMessage] = useState("");
-
-  console.log("message box", props.messages);
 
   const sendMessage = () => {
     var socket = io("http://localhost:4000");

@@ -41,7 +41,6 @@ export const SignUpComponent = () => {
       dateofbirth: userDOB,
       accesslevel: "User",
     };
-    console.log(data);
     await axios.post("http://localhost:4000/signUP", data);
     toHome("/home", { replace: true });
   };

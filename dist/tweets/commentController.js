@@ -10,67 +10,65 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addCommentToComment = exports.addCommentsToTweet = void 0;
+exports.getNestedComments = exports.getComment = exports.addCommentToComment = exports.addCommentsToTweet = void 0;
 const tweetController_1 = require("./tweetController");
 const commentSchema_1 = require("../data/commentSchema");
 const addCommentsToTweet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("commenting started................");
     const { commentData, tweetID, userID } = req.body;
     if (!commentData || (!tweetID && !userID)) {
         res.status(201).json({ message: "user credentials missing" });
         return;
     }
-    if (tweetID) {
-        const commentObject = yield commentSchema_1.commentModel.create({
-            commentID: (0, tweetController_1.generateUUID)().toString(),
-            commentData: commentData,
-            userID: userID,
-            like: 0,
-            replies: [],
-        });
-        yield commentSchema_1.nestedCommentModel.create({
+    const commentObject = yield commentSchema_1.commentModel.create({
+        commentID: (0, tweetController_1.generateUUID)().toString(),
+        tweetID: tweetID,
+        parentComment: null,
+        commentData: commentData,
+        userID: userID,
+        like: 0,
+    });
+    const tweetPresent = yield commentSchema_1.nestedCommentModel.find({ tweetID: tweetID });
+    if (tweetPresent.length > 0) {
+        yield commentSchema_1.nestedCommentModel.findOneAndUpdate({ tweetID: tweetID }, { $push: { Comment: commentObject } });
+    }
+    else {
+        const tweetComment = yield commentSchema_1.nestedCommentModel.create({
             tweetID: tweetID,
             Comment: [commentObject],
         });
-        res.status(401).json({ message: "commented on the post" });
-        return;
     }
-    else if (userID) {
-    }
+    res.status(201).json({ message: "commented on the post" });
+    return;
 });
 exports.addCommentsToTweet = addCommentsToTweet;
 const addCommentToComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { tweetID, userID, comment, commentID } = req.body;
-    if (!comment && !userID && (tweetID || commentID)) {
+    const { userID, commentData, commentID } = req.body;
+    if (!commentData && !userID && !commentID) {
         res.status(201).json({ message: "user credentials missing" });
         return;
     }
-    if (tweetID) {
-        const addComment = yield commentSchema_1.commentModel.create({
-            commentID: (0, tweetController_1.generateUUID)().toString(),
-            tweetID: tweetID,
-            parentComment: null,
-            commentData: comment,
-            userID: userID,
-            like: 0,
-        });
-        console.log("addComment", addComment);
-        res.status(400).json({ message: "comment successfully added to tweet" });
-        return;
-    }
-    else if (commentID) {
-        const addReply = yield commentSchema_1.commentModel.create({
-            commentID: (0, tweetController_1.generateUUID)().toString(),
-            tweetID: null,
-            parentComment: commentID,
-            commentData: comment,
-            userID: userID,
-            like: 0,
-        });
-        console.log("addReply", addReply);
-        res.status(400).json({ message: "comment successfully added to comment" });
-        return;
-    }
+    const addComment = yield commentSchema_1.commentModel.create({
+        commentID: (0, tweetController_1.generateUUID)().toString(),
+        tweetID: null,
+        parentComment: commentID,
+        commentData: commentData,
+        userID: userID,
+        like: 0,
+    });
+    res.status(400).json({ message: "comment successfully added to comment" });
+    return;
     return;
 });
 exports.addCommentToComment = addCommentToComment;
+const getComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const Comments = yield commentSchema_1.nestedCommentModel.find({ tweetID: id });
+    res.status(201).send(Comments[0]);
+});
+exports.getComment = getComment;
+const getNestedComments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const Comments = yield commentSchema_1.commentModel.find({ parentComment: id });
+    res.status(201).send(Comments);
+});
+exports.getNestedComments = getNestedComments;

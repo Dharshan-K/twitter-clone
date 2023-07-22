@@ -8,7 +8,6 @@ import "../src/Components/assets/home.css";
 import Hashtag from "./Components/hashtag/hashtag";
 
 export default function Home(page: any) {
-  console.log(page.props.page);
   return (
     <div>
       <div className="flex">

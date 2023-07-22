@@ -3,9 +3,7 @@
 import * as Express from "express";
 import { itemsPool } from "../../data/connectDB";
 export const getHashTag = (req: Express.Request, res: Express.Response) => {
-  console.log("getting hashtags..........");
   const { hashTag } = req.body;
-  console.log(hashTag);
   if (hashTag) {
     try {
       const queryhash = queryHashTag(hashTag);
@@ -34,10 +32,8 @@ export const getHashTags = async (
 };
 
 function queryHashTag(tagNumber: number) {
-  console.log("getting into query........");
   const hashQuery = itemsPool.query("select * from hashData where tag=$1", [
     tagNumber,
   ]);
-  console.log(hashQuery);
   return hashQuery;
 }

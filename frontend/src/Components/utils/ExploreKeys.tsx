@@ -6,10 +6,8 @@ export default function ExploreKeysTab() {
     useState(0);
 
   useEffect(() => {
-    console.log(tab);
     const getHashtags = async () => {
       const response = await axios.get(`http://localhost:4000/hashtag/${tab}`);
-      console.log(response.data);
     };
 
     getHashtags();

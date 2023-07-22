@@ -11,6 +11,8 @@ import ExploreTab from "./Components/Explore/ExploreTab";
 import { SignUpComponent } from "./Components/User/signUp";
 import Hashtag from "./Components/hashtag/hashtag";
 import Dropdown from "./Components/utils/Dropdown";
+import { CommentComponent } from "./Components/Comments/CommentComponent";
+import { CommentPage } from "./Components/Comments/page";
 
 const router = createBrowserRouter([
   { path: "/", element: <LoginComponent /> },
@@ -20,6 +22,7 @@ const router = createBrowserRouter([
   { path: "/signUp", element: <SignUpComponent /> },
   { path: "/tweet/:hashtag", element: <Home props={{ page: "Explore" }} /> },
   { path: "/dropdown", element: <Dropdown /> },
+  { path: "/comments/:id", element: <CommentPage /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);

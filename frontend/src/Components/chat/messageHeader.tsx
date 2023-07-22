@@ -29,7 +29,6 @@ export const MessageBar = () => {
         );
         localStorage.setItem("toUser", response.data.userQuery[0].username);
         localStorage.setItem("toUserID", response.data.userQuery[0].userid);
-        console.log(localStorage.getItem("toUserID"));
         setInputText("");
       }
     }

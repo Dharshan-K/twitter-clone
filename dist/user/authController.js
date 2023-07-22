@@ -15,7 +15,6 @@ const authmiddleware_1 = require("../middleware/authmiddleware");
 const bcrypt = require("bcrypt");
 const login = (req, res) => {
     const { userid, emailid, userpassword } = req.body;
-    console.log("userid, emailid, userpassword", userid, emailid, userpassword);
     if ((userid || emailid) && userpassword) {
         (0, userController_1.findUser)(userid, emailid, (error, results, doesExist) => __awaiter(void 0, void 0, void 0, function* () {
             if (error) {

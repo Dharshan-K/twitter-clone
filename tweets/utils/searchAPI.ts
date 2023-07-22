@@ -8,7 +8,6 @@ export const searchAPI = async (
   res: Express.Response
 ) => {
   const { searchQuery } = req.body;
-  console.log("searchQuery", searchQuery);
   const search = await getSearchQuery(searchQuery);
   const userSearch = await getUserQuery(searchQuery);
   res.status(201).send({ tweetQuery: search, userQuery: userSearch });

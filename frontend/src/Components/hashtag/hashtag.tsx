@@ -30,14 +30,12 @@ export default function Hashtag() {
       "http://localhost:4000/tweet/hashtag",
       data
     );
-    console.log(response.data[0]);
     setHashTags(response.data);
   };
 
   useEffect(() => {
     getHashtag();
   }, []);
-  console.log("hashTags", typeof hashTags);
   return (
     <div className="ml-96">
       {hashTags.map((hash: any, _index: number) => (
