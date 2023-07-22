@@ -19,7 +19,7 @@ const router = createBrowserRouter([
   { path: "/home", element: <Home props={{ page: "Home" }} /> },
   { path: "/messages", element: <ChatUI /> },
   { path: "/explore", element: <ExploreTab /> },
-  { path: "/signUp", element: <SignUpComponent /> },
+  { path: "/signup", element: <SignUpComponent /> },
   { path: "/tweet/:hashtag", element: <Home props={{ page: "Explore" }} /> },
   { path: "/dropdown", element: <Dropdown /> },
   { path: "/comments/:id", element: <CommentPage /> },

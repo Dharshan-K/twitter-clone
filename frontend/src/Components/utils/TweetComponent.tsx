@@ -98,7 +98,7 @@ export default function TweetComponent(tweetContent: any) {
             <AiOutlineRetweet className="my-1 text-[20px]" />
             <p className="text-[13px] px-2 pt-1">340</p>
           </button>
-          <a href={`https://twitter-frontend-uypm.onrender.com/comments/${tweetid}`} className="flex w-24 text-slate-500 hover:text-blue-600">
+          <a href={`https://twitter-dharshan.vercel.app/comments/${tweetid}`} className="flex w-24 text-slate-500 hover:text-blue-600">
             <FaRegComment className="my-1" />
             <p className="text-[13px] px-2 pt-1">340</p>
           </a>
