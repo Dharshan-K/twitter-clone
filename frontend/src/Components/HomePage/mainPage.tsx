@@ -49,7 +49,7 @@ export default function MainPage() {
   return (
     <div>
       {tweets.map((tweet: Tweet, index) => (
-        <a href={`https://twitter-frontend-c831.onrender.com/${tweet.tweetid}`}>
+        <a href={`https://twitter-frontend-uypm.onrender.com/${tweet.tweetid}`}>
           <TweetComponent tweetContent={tweet} key={index} />
         </a>
       ))}

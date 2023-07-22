@@ -57,7 +57,7 @@ export default function SidebarComponent() {
         </p>
         <p className={styles["sidebar-Links"]}>
           <a
-            href="https://twitter-frontend-c831.onrender.com/messages"
+            href="https://twitter-frontend-uypm.onrender.com/messages"
             className="flex flex-row"
           >
             <MdOutlineLocalPostOffice className="basis-1/4 text-3xl" />

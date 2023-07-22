@@ -111,7 +111,7 @@ export const LoginComponent = () => {
               >
                 Dont have an account?
                 <a
-                  href="https://twitter-frontend-c831.onrender.com/signUp"
+                  href="https://twitter-frontend-uypm.onrender.com/signUp"
                   className="text-blue-400"
                 >
                   Sign Up
