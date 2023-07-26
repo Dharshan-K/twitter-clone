@@ -37,7 +37,17 @@ export const CommentComponent = (props: { id: string }) => {
     );
   };
 
-  const replyToComment = () => {};
+  const sendReplyComment = async (id: String) => {
+    const data = {
+      userID: localStorage.getItem("userID"),
+      commentData: replyComment,
+      commentID: id,
+    };
+    const response = await axios.post(
+      "https://twitter-backend-rcbd.onrender.com/tweet/addCommentToComment",
+      data
+    );
+  };
   useEffect(() => {
     const getComments = async () => {
       const response = await axios.get(
@@ -93,7 +103,15 @@ export const CommentComponent = (props: { id: string }) => {
                     />
                   </div>
                   <div className="bg-blue-500 rounded-full mt-5 w-20 h-[30px] bg-blue-500">
-                    <button className="px-5 py-1">Send</button>
+                    commentID: String;
+                    <button
+                      onClick={() => {
+                        sendReplyComment(comment.commentID);
+                      }}
+                      className="px-5 py-1"
+                    >
+                      Send
+                    </button>
                   </div>
                 </div>
               </div>
