@@ -18,7 +18,7 @@ export default function ChatBox(props: { messages: messageInterface[] }) {
   const [message, setMessage] = useState("");
 
   const sendMessage = () => {
-    var socket = io("https://twitter-backend-rcbd.onrender.com");
+    var socket = io("http://localhost:4000");
     socket.on("connect", () => {
       console.log(socket.id);
     });

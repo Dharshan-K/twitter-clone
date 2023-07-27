@@ -20,11 +20,7 @@ export default function TweetEditor() {
     };
 
     await axios
-      .post(
-        "https://twitter-backend-rcbd.onrender.com/tweet/insertTweet",
-        data,
-        config
-      )
+      .post("http://localhost:4000/tweet/insertTweet", data, config)
       .then((response) => {
         console.log(response);
       });
