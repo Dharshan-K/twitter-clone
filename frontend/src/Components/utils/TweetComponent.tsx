@@ -6,23 +6,40 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import { FiShare } from "react-icons/fi";
 import { VscGraph } from "react-icons/vsc";
 import { LiaDonateSolid } from "react-icons/lia";
-import { useEffect,useState } from "react";
+import { MouseEvent, useEffect,useState } from "react";
 import axios from "axios";
 
 export default function TweetComponent(tweetContent: any) {
   let { tweetid,userid, writtenby, tweetwritten, createdat, hashtags,likes } =
     tweetContent.tweetContent;
   const [likesCount,setLikesCount] = useState(likes) 
+  const [imageSrc,setImageSrc] = useState("")
 
-  const handleLike = async(id:string)=>{
-    const config = {
-    headers: {
-      authorization: localStorage.getItem("token"),
-    },
+  const handleLike = (id:string)=>{
+    
+
+  //   const config = {
+  //   headers: {
+  //     authorization: localStorage.getItem("token"),
+  //   },
+  // }
+    console.log("liked");
+    // const response = await axios.post(`http://localhost:4000/tweet/like/${id}`)
+    // setLikesCount(response.data.likesCount);
   }
-    const response = await axios.post(`http://localhost:4000/tweet/like/${id}`,config)
-    setLikesCount(response.data.likesCount);
-  }
+
+  useEffect(()=>{
+    const getImage = async()=>{
+      const data = {tweetID: tweetid}
+      console.log("getting the image");
+      const response = await axios.post("http://localhost:4000/tweet/getImage", data);
+      const imageData = await response.data; // Access the response data
+      const blob = new Blob([imageData], { type: response.headers["content-type"] });
+      const imageUrl = URL.createObjectURL(blob);
+      setImageSrc(imageUrl);
+    }
+    getImage()
+  })
 
   function createTweet(tweetString: string): any {
     let tweet = tweetString.split(/\s*(?=[#@])/);

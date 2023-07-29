@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connectMongo = exports.itemsPool = void 0;
+exports.getImage = exports.connectMongo = exports.itemsPool = exports.gfs = void 0;
 const mongoose_1 = require("mongoose");
 const pg_1 = require("pg");
 require("dotenv").config();
@@ -26,8 +26,11 @@ const connectMongo = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         mongoose_1.default.set("strictQuery", false);
         const connection = yield mongoose_1.default.connect(MONGODB_URL);
-        console.log(connection.connection.host);
         console.log("mongoDB connected");
+        const conn = mongoose_1.default.connection;
+        exports.gfs = yield new mongoose_1.default.mongo.GridFSBucket(conn.db, {
+            bucketName: "uploads",
+        });
     }
     catch (error) {
         console.log(error);
@@ -35,3 +38,18 @@ const connectMongo = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.connectMongo = connectMongo;
+const getImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("getting the image 1");
+    const files = yield exports.gfs.find({ tweetID: req.body.tweetID }).toArray();
+    console.log(files, files);
+    if (!files[0] || files.length === 0) {
+        console.log("error......");
+        res.status(401).send("error");
+    }
+    else if (files[0]) {
+        const imageFile = files[0];
+        exports.gfs.openDownloadStream(imageFile._id).pipe(res);
+        res.status(201).send("image relayed");
+    }
+});
+exports.getImage = getImage;

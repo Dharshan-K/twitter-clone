@@ -1,0 +1,15 @@
+/* Add your styles here */
+.tweet-options {
+    /* Add your styles for the tweet-options container */
+}
+
+/* Style the icon as needed */
+.tweet-options .icon {
+    /* Add your styles for the icon */
+    cursor: pointer;
+}
+
+/* Hide the file input */
+.tweet-options input[type="file"] {
+    display: none;
+}

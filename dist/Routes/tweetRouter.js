@@ -9,6 +9,8 @@ const commentController_1 = require("../tweets/commentController");
 const searchAPI_1 = require("../tweets/utils/searchAPI");
 const chatController_1 = require("../message/chatController");
 const hashtagController_1 = require("../tweets/hashtag/hashtagController");
+const FileMiddleware_1 = require("../middleware/FileMiddleware");
+const connectDB_1 = require("../data/connectDB");
 const tweetRouter = Express.Router();
 exports.tweetRouter = tweetRouter;
 tweetRouter.route("/insertTweet").post(authmiddleware_1.authUser, tweetController_1.createTweet);
@@ -23,3 +25,5 @@ tweetRouter.route("/like/:id").post(authmiddleware_1.authUser, tweetController_1
 tweetRouter.route("/:id").get(commentController_1.getComment);
 tweetRouter.route("/comment/:id").get(commentController_1.getNestedComments);
 tweetRouter.route("/home/:id").get(tweetController_1.getTweet);
+tweetRouter.route("/upload").post(FileMiddleware_1.upload.single("file"), FileMiddleware_1.uploadImage);
+tweetRouter.route("/getImage").post(connectDB_1.getImage);

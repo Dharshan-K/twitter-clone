@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.nestedCommentModel = exports.commentModel = void 0;
+exports.nestedCommentModel = exports.commentModel = exports.Image = void 0;
 /** @format */
 const mongoose = require("mongoose");
 const commentSchema = new mongoose.Schema({
@@ -15,5 +15,24 @@ const nestedComment = new mongoose.Schema({
     tweetID: { type: String, required: true },
     Comment: [commentSchema],
 });
+const ImageSchema = new mongoose.Schema({
+    filename: {
+        required: true,
+        type: String,
+    },
+    fileId: {
+        required: true,
+        type: String,
+    },
+    tweetID: {
+        required: true,
+        type: String,
+    },
+    createdAt: {
+        default: Date.now(),
+        type: Date,
+    },
+});
+exports.Image = mongoose.model("Image", ImageSchema);
 exports.commentModel = mongoose.model("comment", commentSchema);
 exports.nestedCommentModel = mongoose.model("nestedComment", nestedComment);

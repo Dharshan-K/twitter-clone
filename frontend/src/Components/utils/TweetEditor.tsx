@@ -3,16 +3,22 @@ import { AiOutlinePicture } from "react-icons/ai";
 import { HiOutlineGif } from "react-icons/hi2";
 import { MdOutlinePoll, MdSchedule, MdOutlineLocationOn } from "react-icons/md";
 import { BsEmojiSmile } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import "../assets/editor.css";
 
 export default function TweetEditor() {
   const styles = {
     "tweet-options": "m-2 text-xl text-blue-500",
   };
   const [tweet, setTweet] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [id, setID] = useState("");
+  const [fileData, setFile] = useState(null);
+
   const sendTweet = async () => {
     const data = { tweet: tweet };
+    let id;
     const config = {
       headers: {
         authorization: `${localStorage.getItem("token")}`,
@@ -21,11 +27,67 @@ export default function TweetEditor() {
 
     await axios
       .post("http://localhost:4000/tweet/insertTweet", data, config)
-      .then((response) => {
+      .then(async (response) => {
         console.log(response);
+        setID(response.data);
+        if (fileData) {
+          const formInfo = new FormData();
+          formInfo.append("file", fileData);
+          formInfo.append("tweetID", response.data);
+
+          try {
+            setUploading(true);
+            const UploadResponse = await axios.post(
+              "http://localhost:4000/tweet/upload",
+              formInfo,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            );
+            console.log(UploadResponse.data);
+            console.log("Uploaded image");
+            const imgElement = document.getElementById(
+              "images"
+            ) as HTMLImageElement;
+            const parentContainer =
+              imgElement.parentElement as HTMLImageElement;
+            if (parentContainer) {
+              parentContainer.removeChild(imgElement);
+            }
+            imgElement.src = "";
+          } catch (error) {
+            console.error("Error uploading image:", error);
+          } finally {
+            setUploading(false);
+          }
+        }
       });
-    window.location.reload();
+
+    setTweet("");
   };
+
+  const handleFileUpload = async (event: any) => {
+    event.preventDefault();
+    const file = event.target.files[0];
+
+    if (file) {
+      console.log("Selected file:", file);
+      setFile(file);
+      var fr = new FileReader();
+      fr.onload = function () {
+        const imgElement = document.getElementById(
+          "images"
+        ) as HTMLImageElement;
+        if (imgElement) {
+          imgElement.src = fr.result as string;
+        }
+      };
+      fr.readAsDataURL(file);
+    }
+  };
+
   return (
     <div
       id="tweetEditor"
@@ -39,19 +101,31 @@ export default function TweetEditor() {
       </div>
       <div className="basis-11/12 w-[400px]">
         <textarea
-          className="w-full py-2 bg-black text-white rounded-md resize-none outline-none"
-          rows={3}
+          className="w-full py-2 max-h-[100vh] bg-black text-white rounded-md outline-none"
           value={tweet}
           placeholder="What's happening?"
           onChange={(e) => {
             setTweet(e.target.value);
           }}
         ></textarea>
+        <img id="images" className="w-[60vh] h-[40vh] mx-4" />
+        <br></br>
 
         <hr></hr>
         <div className="flex  mt-2">
           <span className={styles["tweet-options"]}>
-            <AiOutlinePicture />
+            <div className="tweet-options">
+              <label htmlFor="photoInput">
+                <AiOutlinePicture />
+                <input
+                  type="file"
+                  id="photoInput"
+                  accept="image/*"
+                  name="file"
+                  onChange={(e) => handleFileUpload(e)}
+                />
+              </label>
+            </div>
           </span>
           <span className={styles["tweet-options"]}>
             <HiOutlineGif />

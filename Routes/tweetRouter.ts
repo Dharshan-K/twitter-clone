@@ -17,6 +17,8 @@ import {
 import { searchAPI } from "../tweets/utils/searchAPI";
 import { getMessages, getUsers } from "../message/chatController";
 import { getHashTag, getHashTags } from "../tweets/hashtag/hashtagController";
+import { uploadImage, upload } from "../middleware/FileMiddleware";
+import { getImage } from "../data/connectDB";
 
 const tweetRouter = Express.Router();
 
@@ -32,5 +34,7 @@ tweetRouter.route("/like/:id").post(authUser, postLike);
 tweetRouter.route("/:id").get(getComment);
 tweetRouter.route("/comment/:id").get(getNestedComments);
 tweetRouter.route("/home/:id").get(getTweet);
+tweetRouter.route("/upload").post(upload.single("file"), uploadImage);
+tweetRouter.route("/getImage").post(getImage);
 
 export { tweetRouter };
