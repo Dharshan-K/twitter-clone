@@ -26,7 +26,11 @@ export default function TweetEditor() {
     };
 
     await axios
-      .post("http://localhost:4000/tweet/insertTweet", data, config)
+      .post(
+        "https://twitter-backend-rcbd.onrender.com/tweet/insertTweet",
+        data,
+        config
+      )
       .then(async (response) => {
         console.log(response);
         setID(response.data);
@@ -38,7 +42,7 @@ export default function TweetEditor() {
           try {
             setUploading(true);
             const UploadResponse = await axios.post(
-              "http://localhost:4000/tweet/upload",
+              "https://twitter-backend-rcbd.onrender.com/tweet/upload",
               formInfo,
               {
                 headers: {
@@ -47,16 +51,6 @@ export default function TweetEditor() {
               }
             );
             console.log(UploadResponse.data);
-            console.log("Uploaded image");
-            const imgElement = document.getElementById(
-              "images"
-            ) as HTMLImageElement;
-            const parentContainer =
-              imgElement.parentElement as HTMLImageElement;
-            if (parentContainer) {
-              parentContainer.removeChild(imgElement);
-            }
-            imgElement.src = "";
           } catch (error) {
             console.error("Error uploading image:", error);
           } finally {
@@ -64,7 +58,6 @@ export default function TweetEditor() {
           }
         }
       });
-
     setTweet("");
   };
 
@@ -75,16 +68,15 @@ export default function TweetEditor() {
     if (file) {
       console.log("Selected file:", file);
       setFile(file);
+      const imgElement = document.getElementById("images") as HTMLImageElement;
       var fr = new FileReader();
       fr.onload = function () {
-        const imgElement = document.getElementById(
-          "images"
-        ) as HTMLImageElement;
         if (imgElement) {
           imgElement.src = fr.result as string;
         }
       };
       fr.readAsDataURL(file);
+      imgElement.remove();
     }
   };
 
@@ -108,9 +100,7 @@ export default function TweetEditor() {
             setTweet(e.target.value);
           }}
         ></textarea>
-        <img id="images" className="w-[60vh] h-[40vh] mx-4" />
-        <br></br>
-
+        <img id="images" className="my-3" />
         <hr></hr>
         <div className="flex  mt-2">
           <span className={styles["tweet-options"]}>

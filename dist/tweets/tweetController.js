@@ -53,7 +53,7 @@ exports.createTweet = createTweet;
 function getHastags(tweetString) {
     const checkHashtag = /#\w+/g;
     const hashTags = tweetString.match(checkHashtag);
-    tweetString.replace(checkHashtag, "<Link href={http://localhost:4000/search/`${}`}>#</Link>");
+    tweetString.replace(checkHashtag, "<Link href={https://twitter-backend-rcbd.onrender.com/search/`${}`}>#</Link>");
     return hashTags;
 }
 function getUsers(tweetString) {

@@ -13,8 +13,7 @@ export const CommentPage = () => {
   const i_d = id || "default_id";
   const [tweet, settweet] = useState({
     tweetid: "",
-    tweetwritten:
-      "England is going head-to-head against Mexico. The fans are on the edge of their seats! #EnglandVsMexico #FIFAFever",
+    tweetwritten: "",
     writtenBy: "",
     likes: 0,
     retweets: 0,
@@ -24,7 +23,7 @@ export const CommentPage = () => {
   useEffect(() => {
     const getTweets = async () => {
       const response = await axios.get(
-        `http://localhost:4000/tweet/home/${i_d}`
+        `https://twitter-backend-rcbd.onrender.com/tweet/home/${i_d}`
       );
       settweet(response.data[0]);
     };

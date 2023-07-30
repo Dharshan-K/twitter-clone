@@ -24,17 +24,16 @@ export default function TweetComponent(tweetContent: any) {
   //   },
   // }
     console.log("liked");
-    // const response = await axios.post(`http://localhost:4000/tweet/like/${id}`)
+    // const response = await axios.post(`https://twitter-backend-rcbd.onrender.com/tweet/like/${id}`)
     // setLikesCount(response.data.likesCount);
   }
 
   useEffect(()=>{
     const getImage = async()=>{
-      console.log("getting the image");
-      const response = await axios.get(`http://localhost:4000/tweet/getImage/${tweetid}`,{responseType:"blob"});
+      console.log("getting image");
+      const response = await axios.get(`https://twitter-backend-rcbd.onrender.com/tweet/getImage/${tweetid}`,{responseType:"blob"});
       const imageData = await response.data;
-      const imageUrl = URL.createObjectURL(imageData);
-      
+      const imageUrl = URL.createObjectURL(imageData);      
       setImageSrc(imageUrl);
     }
     getImage()
@@ -50,7 +49,7 @@ export default function TweetComponent(tweetContent: any) {
       if (word.startsWith("#")) {
         const word2 = word.substring(1)
         const link = document.createElement('a')
-        link.href = `http://localhost:4000/tweet/${word2}`
+        link.href = `https://twitter-backend-rcbd.onrender.com/tweet/${word2}`
         link.textContent = word;
         link.setAttribute("style","color:#1d9bf0")
         span.appendChild(link)
@@ -58,7 +57,7 @@ export default function TweetComponent(tweetContent: any) {
         
         const word2 = word.substring(1)
         const link = document.createElement('a')
-        link.href = `http://localhost:4000/tweet/${word2}`
+        link.href = `https://twitter-backend-rcbd.onrender.com/tweet/${word2}`
         link.textContent = word;
         link.setAttribute("style","color:#1d9bf0")
         span.appendChild(link)
@@ -75,7 +74,7 @@ export default function TweetComponent(tweetContent: any) {
   return (
     <div
       id="tweetComponent"
-      className="flex flex-row bg-black w-[80vh] h-[65vh] border-[#404040] border-2"
+      className="flex flex-row bg-black w-[80vh] h-[70vh] border-[#404040] border-2 my-0"
     >
       <div id="profile-picture" className="basis-[70px]">
         <img
@@ -95,7 +94,7 @@ export default function TweetComponent(tweetContent: any) {
         </div>
         <div className="">
           <div id="tweet-content">
-            <span className="text-white text-[15px]">
+            <span className="text-white text-[15px] flex justify-start ml-5">
               <div dangerouslySetInnerHTML={{ __html: createTweet(tweetwritten).outerHTML }}></div>              
             </span>
           </div>
@@ -119,7 +118,7 @@ export default function TweetComponent(tweetContent: any) {
             <AiOutlineRetweet className="my-1 text-[20px]" />
             <p className="text-[13px] px-2 pt-1">340</p>
           </button>
-          <a href={`http://localhost:3000/comments/${tweetid}`} className="flex w-24 text-slate-500 hover:text-blue-600">
+          <a href={`https://twitter-dharshan.vercel.app/comments/${tweetid}`} className="flex w-24 text-slate-500 hover:text-blue-600">
             <FaRegComment className="my-1" />
             <p className="text-[13px] px-2 pt-1">340</p>
           </a>
