@@ -17,20 +17,24 @@ import {
 import { searchAPI } from "../tweets/utils/searchAPI";
 import { getMessages, getUsers } from "../message/chatController";
 import { getHashTag, getHashTags } from "../tweets/hashtag/hashtagController";
+import { uploadImage, upload } from "../middleware/FileMiddleware";
+import { getImage } from "../data/connectDB";
 
 const tweetRouter = Express.Router();
 
 tweetRouter.route("/insertTweet").post(authUser, createTweet);
-tweetRouter.route("/addComment").post(addCommentsToTweet);
-tweetRouter.route("/addToComment").post(addCommentToComment);
+tweetRouter.route("/addComment").post(authUser, addCommentsToTweet);
+tweetRouter.route("/addToComment").post(authUser, addCommentToComment);
 tweetRouter.route("/search").post(searchAPI);
 tweetRouter.route("/home").get(getTweets);
-tweetRouter.route("/messages").post(getMessages);
+tweetRouter.route("/messages").post(authUser, getMessages);
 tweetRouter.route("/hashtag").post(getHashTags);
 tweetRouter.route("/friends").get(getUsers);
-tweetRouter.route("/like/:id").post(postLike);
+tweetRouter.route("/like/:id").post(authUser, postLike);
 tweetRouter.route("/:id").get(getComment);
 tweetRouter.route("/comment/:id").get(getNestedComments);
 tweetRouter.route("/home/:id").get(getTweet);
+tweetRouter.route("/upload").post(upload.single("file"), uploadImage);
+tweetRouter.route("/getImage/:id").get(getImage);
 
 export { tweetRouter };

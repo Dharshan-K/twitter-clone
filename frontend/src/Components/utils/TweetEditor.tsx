@@ -3,16 +3,22 @@ import { AiOutlinePicture } from "react-icons/ai";
 import { HiOutlineGif } from "react-icons/hi2";
 import { MdOutlinePoll, MdSchedule, MdOutlineLocationOn } from "react-icons/md";
 import { BsEmojiSmile } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import "../assets/editor.css";
 
 export default function TweetEditor() {
   const styles = {
     "tweet-options": "m-2 text-xl text-blue-500",
   };
   const [tweet, setTweet] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [id, setID] = useState("");
+  const [fileData, setFile] = useState(null);
+
   const sendTweet = async () => {
     const data = { tweet: tweet };
+    let id;
     const config = {
       headers: {
         authorization: `${localStorage.getItem("token")}`,
@@ -25,11 +31,55 @@ export default function TweetEditor() {
         data,
         config
       )
-      .then((response) => {
+      .then(async (response) => {
         console.log(response);
+        setID(response.data);
+        if (fileData) {
+          const formInfo = new FormData();
+          formInfo.append("file", fileData);
+          formInfo.append("tweetID", response.data);
+
+          try {
+            setUploading(true);
+            const UploadResponse = await axios.post(
+              "https://twitter-backend-rcbd.onrender.com/tweet/upload",
+              formInfo,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            );
+            console.log(UploadResponse.data);
+          } catch (error) {
+            console.error("Error uploading image:", error);
+          } finally {
+            setUploading(false);
+          }
+        }
       });
-    window.location.reload();
+    setTweet("");
   };
+
+  const handleFileUpload = async (event: any) => {
+    event.preventDefault();
+    const file = event.target.files[0];
+
+    if (file) {
+      console.log("Selected file:", file);
+      setFile(file);
+      const imgElement = document.getElementById("images") as HTMLImageElement;
+      var fr = new FileReader();
+      fr.onload = function () {
+        if (imgElement) {
+          imgElement.src = fr.result as string;
+        }
+      };
+      fr.readAsDataURL(file);
+      imgElement.remove();
+    }
+  };
+
   return (
     <div
       id="tweetEditor"
@@ -43,19 +93,29 @@ export default function TweetEditor() {
       </div>
       <div className="basis-11/12 w-[400px]">
         <textarea
-          className="w-full py-2 bg-black text-white rounded-md resize-none outline-none"
-          rows={3}
+          className="w-full py-2 max-h-[100vh] bg-black text-white rounded-md outline-none"
           value={tweet}
           placeholder="What's happening?"
           onChange={(e) => {
             setTweet(e.target.value);
           }}
         ></textarea>
-
+        <img id="images" className="my-3" />
         <hr></hr>
         <div className="flex  mt-2">
           <span className={styles["tweet-options"]}>
-            <AiOutlinePicture />
+            <div className="tweet-options">
+              <label htmlFor="photoInput">
+                <AiOutlinePicture />
+                <input
+                  type="file"
+                  id="photoInput"
+                  accept="image/*"
+                  name="file"
+                  onChange={(e) => handleFileUpload(e)}
+                />
+              </label>
+            </div>
           </span>
           <span className={styles["tweet-options"]}>
             <HiOutlineGif />

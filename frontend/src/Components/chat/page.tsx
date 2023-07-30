@@ -31,9 +31,16 @@ export default function ChatUI() {
   const selectUser = (userName: string) => {
     const selectedUser = async (userName: string) => {
       const data = { from: localStorage.getItem("userName"), to: userName };
+      const config = {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      };
+
       const userConversations = await axios.post(
         "https://twitter-backend-rcbd.onrender.com/tweet/messages",
-        data
+        data,
+        config
       );
       setMessages(userConversations.data);
     };

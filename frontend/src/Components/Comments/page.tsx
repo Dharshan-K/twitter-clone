@@ -13,8 +13,7 @@ export const CommentPage = () => {
   const i_d = id || "default_id";
   const [tweet, settweet] = useState({
     tweetid: "",
-    tweetwritten:
-      "England is going head-to-head against Mexico. The fans are on the edge of their seats! #EnglandVsMexico #FIFAFever",
+    tweetwritten: "",
     writtenBy: "",
     likes: 0,
     retweets: 0,

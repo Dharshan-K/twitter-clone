@@ -5,33 +5,12 @@
 import TweetComponent from "../utils/TweetComponent";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
-export type Tweet = {
-  tweetid: string;
-  tweetWritten: string;
-  writtenBy: string;
-  likes: number;
-  retweets: number;
-  createdAt: Date;
-};
-
-export type User = {
-  userid: string;
-  username: string;
-  email: string;
-  dob: Date;
-  passwordhash: string;
-  accesslevel: AccessLevel;
-};
-
-export type AccessLevel = "Admin" | "User" | "Anonymous";
-
-export type Comments = User & {
-  comment: string;
-};
+import { useNavigate } from "react-router-dom";
+import { Tweet } from "../../../types";
 
 export default function MainPage() {
   const [tweets, setTweets] = useState<Tweet[]>([]);
+  const toTweet = useNavigate();
   useEffect(() => {
     async function getTweets() {
       try {
@@ -46,12 +25,20 @@ export default function MainPage() {
     getTweets();
   }, []);
 
+  const handleClick = (id: string) => {
+    toTweet(`/${id}`, { replace: true });
+  };
+
   return (
     <div>
       {tweets.map((tweet: Tweet, index) => (
-        <a href={`https://twitter-dharshan.vercel.app/${tweet.tweetid}`}>
+        <button
+          onClick={() => {
+            handleClick(tweet.tweetid);
+          }}
+        >
           <TweetComponent tweetContent={tweet} key={index} />
-        </a>
+        </button>
       ))}
     </div>
   );

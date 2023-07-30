@@ -45,7 +45,7 @@ const createTweet = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             tweetID: tweetID,
             Comment: [],
         });
-        res.status(201).json({ message: "inserted tweet" });
+        res.status(201).send(tweetID);
         console.log("inserted values");
     }));
 });

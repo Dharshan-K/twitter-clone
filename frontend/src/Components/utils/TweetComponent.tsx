@@ -6,18 +6,38 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import { FiShare } from "react-icons/fi";
 import { VscGraph } from "react-icons/vsc";
 import { LiaDonateSolid } from "react-icons/lia";
-import { useEffect,useState } from "react";
+import { MouseEvent, useEffect,useState } from "react";
 import axios from "axios";
 
 export default function TweetComponent(tweetContent: any) {
   let { tweetid,userid, writtenby, tweetwritten, createdat, hashtags,likes } =
     tweetContent.tweetContent;
   const [likesCount,setLikesCount] = useState(likes) 
+  const [imageSrc,setImageSrc] = useState("")
 
-  const handleLike = async(id:string)=>{
-    const response = await axios.post(`https://twitter-backend-rcbd.onrender.com/tweet/like/${id}`)
-    setLikesCount(response.data.likesCount);
+  const handleLike = (id:string)=>{
+    
+
+  //   const config = {
+  //   headers: {
+  //     authorization: localStorage.getItem("token"),
+  //   },
+  // }
+    console.log("liked");
+    // const response = await axios.post(`https://twitter-backend-rcbd.onrender.com/tweet/like/${id}`)
+    // setLikesCount(response.data.likesCount);
   }
+
+  useEffect(()=>{
+    const getImage = async()=>{
+      console.log("getting image");
+      const response = await axios.get(`https://twitter-backend-rcbd.onrender.com/tweet/getImage/${tweetid}`,{responseType:"blob"});
+      const imageData = await response.data;
+      const imageUrl = URL.createObjectURL(imageData);      
+      setImageSrc(imageUrl);
+    }
+    getImage()
+  },[])
 
   function createTweet(tweetString: string): any {
     let tweet = tweetString.split(/\s*(?=[#@])/);
@@ -54,12 +74,12 @@ export default function TweetComponent(tweetContent: any) {
   return (
     <div
       id="tweetComponent"
-      className="flex flex-row bg-black w-[80vh] h-[65vh] border-[#404040] border-2"
+      className="flex flex-row bg-black w-[80vh] h-[70vh] border-[#404040] border-2 my-0"
     >
       <div id="profile-picture" className="basis-[70px]">
         <img
           className="border-1 rounded-full w-10 h-10 ml-2 mt-3"
-          src="https://source.unsplash.com/random/200x200?sig=incrementingIdentifier"
+          src={"https://source.unsplash.com/random/200x200?sig=incrementingIdentifier"}
         />
       </div>
       <div id="user-info" className="basis-5/6 w-96 mr-5">
@@ -74,14 +94,14 @@ export default function TweetComponent(tweetContent: any) {
         </div>
         <div className="">
           <div id="tweet-content">
-            <span className="text-white text-[15px]">
+            <span className="text-white text-[15px] flex justify-start ml-5">
               <div dangerouslySetInnerHTML={{ __html: createTweet(tweetwritten).outerHTML }}></div>              
             </span>
           </div>
           <div id="tweet-footer pt-10">
             <img
               className="border-1 rounded-xl ml-5 mt-3 "
-              src="https://source.unsplash.com/random/500x300?sig=incrementingIdentifier"
+              src={imageSrc}
               alt=""
             />
           </div>

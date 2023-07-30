@@ -31,9 +31,15 @@ export const CommentComponent = (props: { id: string }) => {
       tweetID: props.id,
       userID: localStorage.getItem("userID"),
     };
+    const config = {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    };
     const response = await axios.post(
       "https://twitter-backend-rcbd.onrender.com/tweet/addComment",
-      data
+      data,
+      config
     );
   };
 
@@ -43,9 +49,15 @@ export const CommentComponent = (props: { id: string }) => {
       commentData: replyComment,
       commentID: id,
     };
+    const config = {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    };
     const response = await axios.post(
-      "https://twitter-backend-rcbd.onrender.com/tweet/addCommentToComment",
-      data
+      "https://twitter-backend-rcbd.onrender.com/tweet/addToComment",
+      data,
+      config
     );
   };
   useEffect(() => {

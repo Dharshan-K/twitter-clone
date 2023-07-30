@@ -42,7 +42,7 @@ export const createTweet = async (req: Express.Request, res: Express.Response) =
       tweetID: tweetID,
       Comment: [],
     });
-      res.status(201).json({ message: "inserted tweet" });
+      res.status(201).send(tweetID);
       console.log("inserted values");
     }
   );
