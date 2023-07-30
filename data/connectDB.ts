@@ -5,6 +5,7 @@ import { Pool } from "pg";
 require("dotenv").config();
 export let gfs: mongoose.mongo.GridFSBucket;
 import * as Express from "express";
+import { Image } from "./commentSchema";
 
 export const itemsPool = new Pool({
   connectionString: process.env.POSTGRESQL_EXTERNAL_DATABASE_URL,
@@ -32,14 +33,14 @@ export const connectMongo = async () => {
 
 export const getImage = async (req: Express.Request, res: Express.Response) => {
   console.log("getting the image 1");
-  const files = await gfs.find({ tweetID: req.body.tweetID }).toArray();
-  console.log(files, files);
-  if (!files[0] || files.length === 0) {
+  console.log(req.params.id);
+  const files = await Image.find({ tweetID: req.params.id });
+  const imageFiles = await gfs.find({ filename: files[0].filename }).toArray();
+  if (!imageFiles[0] || imageFiles.length === 0) {
     console.log("error......");
     res.status(401).send("error");
-  } else if (files[0]) {
-    const imageFile = files[0];
+  } else if (imageFiles[0]) {
+    const imageFile = imageFiles[0];
     gfs.openDownloadStream(imageFile._id).pipe(res);
-    res.status(201).send("image relayed");
   }
 };

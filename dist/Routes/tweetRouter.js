@@ -26,4 +26,4 @@ tweetRouter.route("/:id").get(commentController_1.getComment);
 tweetRouter.route("/comment/:id").get(commentController_1.getNestedComments);
 tweetRouter.route("/home/:id").get(tweetController_1.getTweet);
 tweetRouter.route("/upload").post(FileMiddleware_1.upload.single("file"), FileMiddleware_1.uploadImage);
-tweetRouter.route("/getImage").post(connectDB_1.getImage);
+tweetRouter.route("/getImage/:id").get(connectDB_1.getImage);

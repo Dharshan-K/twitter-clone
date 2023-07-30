@@ -30,16 +30,15 @@ export default function TweetComponent(tweetContent: any) {
 
   useEffect(()=>{
     const getImage = async()=>{
-      const data = {tweetID: tweetid}
       console.log("getting the image");
-      const response = await axios.post("http://localhost:4000/tweet/getImage", data);
-      const imageData = await response.data; // Access the response data
-      const blob = new Blob([imageData], { type: response.headers["content-type"] });
-      const imageUrl = URL.createObjectURL(blob);
+      const response = await axios.get(`http://localhost:4000/tweet/getImage/${tweetid}`,{responseType:"blob"});
+      const imageData = await response.data;
+      const imageUrl = URL.createObjectURL(imageData);
+      
       setImageSrc(imageUrl);
     }
     getImage()
-  })
+  },[])
 
   function createTweet(tweetString: string): any {
     let tweet = tweetString.split(/\s*(?=[#@])/);
@@ -81,7 +80,7 @@ export default function TweetComponent(tweetContent: any) {
       <div id="profile-picture" className="basis-[70px]">
         <img
           className="border-1 rounded-full w-10 h-10 ml-2 mt-3"
-          src="https://source.unsplash.com/random/200x200?sig=incrementingIdentifier"
+          src={"https://source.unsplash.com/random/200x200?sig=incrementingIdentifier"}
         />
       </div>
       <div id="user-info" className="basis-5/6 w-96 mr-5">
@@ -103,7 +102,7 @@ export default function TweetComponent(tweetContent: any) {
           <div id="tweet-footer pt-10">
             <img
               className="border-1 rounded-xl ml-5 mt-3 "
-              src="https://source.unsplash.com/random/500x300?sig=incrementingIdentifier"
+              src={imageSrc}
               alt=""
             />
           </div>

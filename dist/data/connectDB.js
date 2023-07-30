@@ -14,6 +14,7 @@ exports.getImage = exports.connectMongo = exports.itemsPool = exports.gfs = void
 const mongoose_1 = require("mongoose");
 const pg_1 = require("pg");
 require("dotenv").config();
+const commentSchema_1 = require("./commentSchema");
 exports.itemsPool = new pg_1.Pool({
     connectionString: process.env.POSTGRESQL_EXTERNAL_DATABASE_URL,
     ssl: {
@@ -40,16 +41,16 @@ const connectMongo = () => __awaiter(void 0, void 0, void 0, function* () {
 exports.connectMongo = connectMongo;
 const getImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("getting the image 1");
-    const files = yield exports.gfs.find({ tweetID: req.body.tweetID }).toArray();
-    console.log(files, files);
-    if (!files[0] || files.length === 0) {
+    console.log(req.params.id);
+    const files = yield commentSchema_1.Image.find({ tweetID: req.params.id });
+    const imageFiles = yield exports.gfs.find({ filename: files[0].filename }).toArray();
+    if (!imageFiles[0] || imageFiles.length === 0) {
         console.log("error......");
         res.status(401).send("error");
     }
-    else if (files[0]) {
-        const imageFile = files[0];
+    else if (imageFiles[0]) {
+        const imageFile = imageFiles[0];
         exports.gfs.openDownloadStream(imageFile._id).pipe(res);
-        res.status(201).send("image relayed");
     }
 });
 exports.getImage = getImage;

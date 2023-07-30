@@ -35,6 +35,6 @@ tweetRouter.route("/:id").get(getComment);
 tweetRouter.route("/comment/:id").get(getNestedComments);
 tweetRouter.route("/home/:id").get(getTweet);
 tweetRouter.route("/upload").post(upload.single("file"), uploadImage);
-tweetRouter.route("/getImage").post(getImage);
+tweetRouter.route("/getImage/:id").get(getImage);
 
 export { tweetRouter };
