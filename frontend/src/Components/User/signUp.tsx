@@ -41,7 +41,7 @@ export const SignUpComponent = () => {
       dateofbirth: userDOB,
       accesslevel: "User",
     };
-    await axios.post("https://twitter-backend-rcbd.onrender.com/signUP", data);
+    await axios.post("http://localhost:4000/signUP", data);
     toHome("/home", { replace: true });
   };
 
@@ -121,7 +121,7 @@ export const SignUpComponent = () => {
               >
                 Already have an account?
                 <a
-                  href="https://twitter-dharshan.vercel.app/"
+                  href="http://localhost:3000/"
                   className="text-blue-400"
                 >
                   Log In

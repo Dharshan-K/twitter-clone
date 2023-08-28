@@ -37,7 +37,7 @@ export const CommentComponent = (props: { id: string }) => {
       },
     };
     const response = await axios.post(
-      "https://twitter-backend-rcbd.onrender.com/tweet/addComment",
+      "http://localhost:4000/tweet/addComment",
       data,
       config
     );
@@ -55,7 +55,7 @@ export const CommentComponent = (props: { id: string }) => {
       },
     };
     const response = await axios.post(
-      "https://twitter-backend-rcbd.onrender.com/tweet/addToComment",
+      "http://localhost:4000/tweet/addToComment",
       data,
       config
     );
@@ -63,7 +63,7 @@ export const CommentComponent = (props: { id: string }) => {
   useEffect(() => {
     const getComments = async () => {
       const response = await axios.get(
-        `https://twitter-backend-rcbd.onrender.com/tweet/${props.id}`
+        `http://localhost:4000/tweet/${props.id}`
       );
       setComment(response.data.Comment);
     };

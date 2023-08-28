@@ -38,7 +38,7 @@ export default function ChatUI() {
       };
 
       const userConversations = await axios.post(
-        "https://twitter-backend-rcbd.onrender.com/tweet/messages",
+        "http://localhost:4000/tweet/messages",
         data,
         config
       );
@@ -51,7 +51,7 @@ export default function ChatUI() {
   useEffect(() => {
     const getMessages = async () => {
       const conversation = await axios.get(
-        "https://twitter-backend-rcbd.onrender.com/tweet/friends",
+        "http://localhost:4000/tweet/friends",
         {
           params: {
             user: localStorage.getItem("userName"),

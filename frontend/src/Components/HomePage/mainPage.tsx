@@ -15,7 +15,7 @@ export default function MainPage() {
     async function getTweets() {
       try {
         const response = await axios.get(
-          "https://twitter-backend-rcbd.onrender.com/tweet/home"
+          "http://localhost:4000/tweet/home"
         );
         setTweets(response.data);
       } catch (error) {

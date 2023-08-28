@@ -18,7 +18,7 @@ const cors = require("cors");
 const connectSocket = (inputServer) => {
     const io = new socket_io_1.Server(inputServer, {
         cors: {
-            origin: "https://twitter-backend-rcbd.onrender.com",
+            origin: "http://localhost:4000",
             methods: ["GET", "POST"],
         },
     });

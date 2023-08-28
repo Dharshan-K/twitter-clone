@@ -27,7 +27,7 @@ export default function Hashtag() {
   const getHashtag = async () => {
     const data = { hashTag: hashtag };
     const response = await axios.post(
-      "https://twitter-backend-rcbd.onrender.com/tweet/hashtag",
+      "http://localhost:4000/tweet/hashtag",
       data
     );
     setHashTags(response.data);

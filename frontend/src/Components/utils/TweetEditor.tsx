@@ -27,7 +27,7 @@ export default function TweetEditor() {
 
     await axios
       .post(
-        "https://twitter-backend-rcbd.onrender.com/tweet/insertTweet",
+        "http://localhost:4000/tweet/insertTweet",
         data,
         config
       )
@@ -42,7 +42,7 @@ export default function TweetEditor() {
           try {
             setUploading(true);
             const UploadResponse = await axios.post(
-              "https://twitter-backend-rcbd.onrender.com/tweet/upload",
+              "http://localhost:4000/tweet/upload",
               formInfo,
               {
                 headers: {
