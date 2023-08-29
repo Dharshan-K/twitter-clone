@@ -17,13 +17,13 @@ tweetRouter.route("/insertTweet").post(authmiddleware_1.authUser, tweetControlle
 tweetRouter.route("/addComment").post(authmiddleware_1.authUser, commentController_1.addCommentsToTweet);
 tweetRouter.route("/addToComment").post(authmiddleware_1.authUser, commentController_1.addCommentToComment);
 tweetRouter.route("/search").post(searchAPI_1.searchAPI);
-tweetRouter.route("/home").get(tweetController_1.getTweets);
+tweetRouter.route("/home/:id").get(tweetController_1.getTweets);
 tweetRouter.route("/messages").post(authmiddleware_1.authUser, chatController_1.getMessages);
 tweetRouter.route("/hashtag").post(hashtagController_1.getHashTags);
 tweetRouter.route("/friends").get(chatController_1.getUsers);
 tweetRouter.route("/like/:id").post(authmiddleware_1.authUser, tweetController_1.postLike);
 tweetRouter.route("/:id").get(commentController_1.getComment);
 tweetRouter.route("/comment/:id").get(commentController_1.getNestedComments);
-tweetRouter.route("/home/:id").get(tweetController_1.getTweet);
+tweetRouter.route("/tweet/:id").get(tweetController_1.getTweet);
 tweetRouter.route("/upload").post(FileMiddleware_1.upload.single("file"), FileMiddleware_1.uploadImage);
 tweetRouter.route("/getImage/:id").get(connectDB_1.getImage);

@@ -10,7 +10,8 @@ export const generateUUID = () => {
 };
 
 export const getTweets = async (req: Express.Request, res: Express.Response) => {
-  const tweets = await itemsPool.query("select * from usertweets order by createdAt asc");
+  const userID = req.params.id;
+  const tweets = await itemsPool.query("select * from usertweets where userid in (select unnest(followers) from userdata where userid=$1);", [userID]);
   res.status(201).send(tweets.rows)
 }
 

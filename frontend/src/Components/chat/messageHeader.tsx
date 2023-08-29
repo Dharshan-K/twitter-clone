@@ -23,10 +23,12 @@ export const MessageBar = () => {
         return;
       } else {
         const data = { searchQuery: inputText };
+        console.log(data)
         const response = await axios.post(
           "https://twitter-backend-rcbd.onrender.com/tweet/search",
           data
         );
+        console.log(response.data)
         localStorage.setItem("toUser", response.data.userQuery[0].username);
         localStorage.setItem("toUserID", response.data.userQuery[0].userid);
         setInputText("");

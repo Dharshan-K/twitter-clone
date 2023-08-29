@@ -23,7 +23,7 @@ export const getSearchQuery = async (searchQuery: String) => {
 
 export const getUserQuery = async (searchQuery: String) => {
   const searchResult = await itemsPool.query(
-    `SELECT * FROM userdata WHERE description ILIKE '%'|| $1 || '%' or username ILIKE '%'|| $1 || '%' or userid ILIKE '%'|| $1 || '%'`,
+    `SELECT * FROM userdata WHERE username ILIKE '%'|| $1 || '%' or username ILIKE '%'|| $1 || '%' or userid ILIKE '%'|| $1 || '%'`,
     [searchQuery]
   );
   return searchResult.rows;

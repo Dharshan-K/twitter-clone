@@ -15,6 +15,7 @@ export default function TweetEditor() {
   const [uploading, setUploading] = useState(false);
   const [id, setID] = useState("");
   const [fileData, setFile] = useState(null);
+  
 
   const sendTweet = async () => {
     const data = { tweet: tweet };
@@ -72,7 +73,10 @@ export default function TweetEditor() {
       var fr = new FileReader();
       fr.onload = function () {
         if (imgElement) {
-          imgElement.src = fr.result as string;
+          console.log("image found")
+          console.log(fr.result)          
+          imgElement.src = URL.createObjectURL(file);
+          console.log(imgElement)
         }
       };
       fr.readAsDataURL(file);

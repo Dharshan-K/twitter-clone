@@ -18,7 +18,7 @@ const cors = require("cors");
 const connectSocket = (inputServer) => {
     const io = new socket_io_1.Server(inputServer, {
         cors: {
-            origin: "https://twitter-backend-rcbd.onrender.com",
+            origin: "https://twitter-dharshan.vercel.app",
             methods: ["GET", "POST"],
         },
     });
@@ -41,8 +41,11 @@ const storeMessage = (from, to, message) => __awaiter(void 0, void 0, void 0, fu
 });
 exports.storeMessage = storeMessage;
 const getMessages = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("got the request");
     const { from, to } = req.body;
+    console.log(from, to);
     const messages = yield connectDB_1.itemsPool.query("select * from chatdata where (user_from=$1 and user_to=$2) or (user_from=$3 and user_to=$4) order by posted_at asc", [from, to, to, from]);
+    console.log(messages.rows);
     res.status(201).send(messages.rows);
 });
 exports.getMessages = getMessages;

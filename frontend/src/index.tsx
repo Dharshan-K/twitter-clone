@@ -23,6 +23,7 @@ const router = createBrowserRouter([
   { path: "/tweet/:hashtag", element: <Home props={{ page: "Explore" }} /> },
   { path: "/dropdown", element: <Dropdown /> },
   { path: "/comments/:id", element: <CommentPage /> },
+  { path: "/tweet/:id", element: <CommentPage /> },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);

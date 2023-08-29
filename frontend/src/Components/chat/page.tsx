@@ -29,8 +29,10 @@ export default function ChatUI() {
   ]);
 
   const selectUser = (userName: string) => {
+    
     const selectedUser = async (userName: string) => {
-      const data = { from: localStorage.getItem("userName"), to: userName };
+      console.log("userName",localStorage.getItem("token"))
+      const data = { from: localStorage.getItem("userID"), to: userName };
       const config = {
         headers: {
           authorization: localStorage.getItem("token"),
@@ -43,6 +45,7 @@ export default function ChatUI() {
         config
       );
       setMessages(userConversations.data);
+      console.log("userConversations.data",userConversations.data)
     };
     selectedUser(userName);
     setClicked(true);
@@ -54,10 +57,11 @@ export default function ChatUI() {
         "https://twitter-backend-rcbd.onrender.com/tweet/friends",
         {
           params: {
-            user: localStorage.getItem("userName"),
+            user: localStorage.getItem("userID"),
           },
         }
       );
+      console.log("conversation.data",conversation.data)
       setUsers(conversation.data);
     };
     getMessages();
