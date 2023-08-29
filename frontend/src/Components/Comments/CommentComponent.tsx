@@ -95,41 +95,45 @@ export const CommentComponent = (props: { id: string }) => {
         </div>
       </div>
       <div className="bg-black min-h-screen ">
-        <p>
-          {Comment.map((comment, index) => {
-            return (
-              <div key={index} className="ml-1 h-20 bg-black text-white pl-4">
-                <div>{comment.userID}</div>
-                <div className="" key={index}>
-                  {comment.commentData}
-                </div>
-                <div className="bg-black flex">
-                  <div>
-                    <input
-                      placeholder="Comment"
-                      className="bg-black text-white w-[40vh] h-10 p-3 mx-5 outline-none my-3"
-                      value={replyComment}
-                      onChange={(e) => {
-                        setReplyComment(e.target.value);
-                      }}
-                    />
+        
+          {Comment ? (
+            Comment.map((comment, index) => {
+              return (
+                <div key={index} className="ml-1 h-20 bg-black text-white pl-4">
+                  <div>{comment.userID}</div>
+                  <div className="" key={index}>
+                    {comment.commentData}
                   </div>
-                  <div className="bg-blue-500 rounded-full mt-5 w-20 h-[30px] bg-blue-500">
-                    commentID: String;
-                    <button
-                      onClick={() => {
-                        sendReplyComment(comment.commentID);
-                      }}
-                      className="px-5 py-1"
-                    >
-                      Send
-                    </button>
+                  <div className="bg-black flex">
+                    <div>
+                      <input
+                        placeholder="Comment"
+                        className="bg-black text-white w-[40vh] h-10 p-3 mx-5 outline-none my-3"
+                        value={replyComment}
+                        onChange={(e) => {
+                          setReplyComment(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="bg-blue-500 rounded-full mt-5 w-20 h-[30px] bg-blue-500">
+                
+                      <button
+                        onClick={() => {
+                          sendReplyComment(comment.commentID);
+                        }}
+                        className="px-5 py-1"
+                      >
+                        Send
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </p>
+              );
+            })
+   ) : (
+            <p>No Comments</p>
+          )
+   }
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import { MouseEvent, useEffect,useState } from "react";
 import axios from "axios";
 
 export default function TweetComponent(tweetContent: any) {
+  console.log(tweetContent)
   let { tweetid,userid, writtenby, tweetwritten, createdat, hashtags,likes } =
     tweetContent.tweetContent;
   const [likesCount,setLikesCount] = useState(likes) 

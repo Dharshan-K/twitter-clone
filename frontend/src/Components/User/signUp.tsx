@@ -42,7 +42,7 @@ export const SignUpComponent = () => {
       accesslevel: "User",
     };
     await axios.post("http://localhost:4000/signUP", data);
-    toHome("/home", { replace: true });
+    // toHome("/", { replace: true });
   };
 
   const handleValueChange = (newValue: any) => {
@@ -127,6 +127,8 @@ export const SignUpComponent = () => {
                   Log In
                 </a>
               </p>
+              <p className="text-white">to login userID:lisa789 password:P@ssword!1234</p>
+
             </div>
           </div>
         </div>

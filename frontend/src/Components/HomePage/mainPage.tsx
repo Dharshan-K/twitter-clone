@@ -14,8 +14,12 @@ export default function MainPage() {
   useEffect(() => {
     async function getTweets() {
       try {
+        const data={
+          userid: localStorage.getItem("userID")
+        }
+        console.log(data)
         const response = await axios.get(
-          "http://localhost:4000/tweet/home"
+          `http://localhost:4000/tweet/home/${localStorage.getItem("userID")}`
         );
         setTweets(response.data);
       } catch (error) {
@@ -26,7 +30,7 @@ export default function MainPage() {
   }, []);
 
   const handleClick = (id: string) => {
-    toTweet(`/${id}`, { replace: true });
+    toTweet(`/tweet/${id}`, { replace: true });
   };
 
   return (

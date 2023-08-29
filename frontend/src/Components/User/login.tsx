@@ -116,8 +116,11 @@ export const LoginComponent = () => {
                 >
                   Sign Up
                 </a>
+               
               </p>
+              <p className="text-white">to login userID:lisa789 password:P@ssword!1234</p>
             </div>
+            
           </div>
         </div>
       </div>

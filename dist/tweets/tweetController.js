@@ -19,7 +19,8 @@ const generateUUID = () => {
 };
 exports.generateUUID = generateUUID;
 const getTweets = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const tweets = yield connectDB_1.itemsPool.query("select * from usertweets order by createdAt asc");
+    const userID = req.params.id;
+    const tweets = yield connectDB_1.itemsPool.query("select * from usertweets where userid in (select unnest(followers) from userdata where userid=$1);", [userID]);
     res.status(201).send(tweets.rows);
 });
 exports.getTweets = getTweets;

@@ -25,7 +25,7 @@ const getSearchQuery = (searchQuery) => __awaiter(void 0, void 0, void 0, functi
 });
 exports.getSearchQuery = getSearchQuery;
 const getUserQuery = (searchQuery) => __awaiter(void 0, void 0, void 0, function* () {
-    const searchResult = yield connectDB_1.itemsPool.query(`SELECT * FROM userdata WHERE description ILIKE '%'|| $1 || '%' or username ILIKE '%'|| $1 || '%' or userid ILIKE '%'|| $1 || '%'`, [searchQuery]);
+    const searchResult = yield connectDB_1.itemsPool.query(`SELECT * FROM userdata WHERE username ILIKE '%'|| $1 || '%' or username ILIKE '%'|| $1 || '%' or userid ILIKE '%'|| $1 || '%'`, [searchQuery]);
     return searchResult.rows;
 });
 exports.getUserQuery = getUserQuery;

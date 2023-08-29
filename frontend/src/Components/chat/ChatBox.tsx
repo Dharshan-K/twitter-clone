@@ -16,6 +16,7 @@ export interface messageInterface {
 
 export default function ChatBox(props: { messages: messageInterface[] }) {
   const [message, setMessage] = useState("");
+  const [current, setCurrent] = useState("")
 
   const sendMessage = () => {
     var socket = io("http://localhost:4000");
@@ -25,11 +26,12 @@ export default function ChatBox(props: { messages: messageInterface[] }) {
     if (message) {
       socket.emit(
         "chat message",
-        localStorage.getItem("toUser"),
-        localStorage.getItem("userName"),
+        localStorage.getItem("toUserID"),
+        localStorage.getItem("userID"),
         message
       );
     }
+
     setMessage("");
   };
 
@@ -42,13 +44,15 @@ export default function ChatBox(props: { messages: messageInterface[] }) {
       </div>
       <div id="message-Container" className="text-white">
         {props.messages.map((message: messageInterface) => {
+          console.log("message", message)
           if (message.user_from === localStorage.getItem("userName")) {
             return (
               <div
                 key={message.indexno}
                 className="w-[30vh] p-1 max-w[50vh] bg-[#1d9bf0] rounded-xl text-white m-[10px] right-1"
               >
-                <div className="mx-4">{message.message_data}</div>
+                <div className="mx-4"><span>{message.user_from}</span></div>
+                <div className="mx-4"><span>{message.message_data}</span></div>
               </div>
             );
           } else {
@@ -57,7 +61,8 @@ export default function ChatBox(props: { messages: messageInterface[] }) {
                 key={message.indexno}
                 className="p-1 w-[30vh] max-w[50vh] rounded-xl  bg-gray-500 text-white m-[10px] right-1"
               >
-                <div>{message.message_data}</div>
+                <div className="mx-4"><span>{message.user_from}</span></div>
+                <div className="mx-4"><span>{message.message_data}</span></div>
               </div>
             );
           }
@@ -78,11 +83,12 @@ export default function ChatBox(props: { messages: messageInterface[] }) {
         <div className="my-3  basis-2/3">
           <input
             className=" bg-gray-700 w-[40vh]  resize-none basis-8/12 outline-none text-white"
-            placeholder="message"
+            placeholder="message (refresh to see the message)"
             id="message-input"
             value={message}
             onChange={(e) => {
               setMessage(e.target.value);
+              setCurrent(e.target.value);
             }}
           />
         </div>

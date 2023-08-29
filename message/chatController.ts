@@ -10,7 +10,7 @@ const cors = require("cors");
 export const connectSocket = (inputServer: Express.Application) => {
   const io = new Server(inputServer, {
     cors: {
-      origin: "http://localhost:4000",
+      origin: "http://localhost:3000",
       methods: ["GET", "POST"],
     },
   });
@@ -38,12 +38,14 @@ export const storeMessage = async (
 };
 
 export const getMessages = async (req: any, res: any) => {
+  console.log("got the request")
   const { from, to } = req.body;
-
+  console.log(from,to)
   const messages = await itemsPool.query(
     "select * from chatdata where (user_from=$1 and user_to=$2) or (user_from=$3 and user_to=$4) order by posted_at asc",
     [from, to, to, from]
   );
+  console.log(messages.rows)
   res.status(201).send(messages.rows);
 };
 
