@@ -19,7 +19,7 @@ export default function MainPage() {
         }
         console.log(data)
         const response = await axios.get(
-          `http://localhost:4000/tweet/home/${localStorage.getItem("userID")}`
+          `https://twitter-backend-rcbd.onrender.com/tweet/home/${localStorage.getItem("userID")}`
         );
         setTweets(response.data);
       } catch (error) {

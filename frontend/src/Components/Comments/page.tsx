@@ -23,7 +23,7 @@ export const CommentPage = () => {
   useEffect(() => {
     const getTweets = async () => {
       const response = await axios.get(
-        `http://localhost:4000/tweet/tweet/${i_d}`
+        `https://twitter-backend-rcbd.onrender.com/tweet/tweet/${i_d}`
       );
       settweet(response.data[0]);
     };

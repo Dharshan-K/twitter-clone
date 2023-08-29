@@ -25,7 +25,7 @@ export const MessageBar = () => {
         const data = { searchQuery: inputText };
         console.log(data)
         const response = await axios.post(
-          "http://localhost:4000/tweet/search",
+          "https://twitter-backend-rcbd.onrender.com/tweet/search",
           data
         );
         console.log(response.data)

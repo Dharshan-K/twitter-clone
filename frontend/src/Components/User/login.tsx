@@ -49,7 +49,7 @@ export const LoginComponent = () => {
     e.preventDefault();
 
     const response = await axios.post(
-      "http://localhost:4000/login",
+      "https://twitter-backend-rcbd.onrender.com/login",
       data
     );
     console.log("response.headers", response.data);
@@ -111,7 +111,7 @@ export const LoginComponent = () => {
               >
                 Dont have an account?
                 <a
-                  href="http://localhost:3000/signup"
+                  href="https://twitter-dharshan.vercel.app/signup"
                   className="text-blue-400"
                 >
                   Sign Up

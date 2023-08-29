@@ -39,7 +39,7 @@ export default function SidebarComponent() {
         </span>
         <p className={`${styles["sidebar-Links"]}`}>
           <a
-            href="http://localhost:3000/home"
+            href="https://twitter-dharshan.vercel.app/home"
             className="flex flex-row"
           >
             <BsHouseDoor className="basis-1/4 mt-1 text-3xl" />
@@ -60,7 +60,7 @@ export default function SidebarComponent() {
         </p>
         <p className={styles["sidebar-Links"]}>
           <a
-            href="http://localhost:3000/messages"
+            href="https://twitter-dharshan.vercel.app/messages"
             className="flex flex-row"
           >
             <MdOutlineLocalPostOffice className="basis-1/4 text-3xl" />

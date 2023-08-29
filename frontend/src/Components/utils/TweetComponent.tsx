@@ -25,14 +25,14 @@ export default function TweetComponent(tweetContent: any) {
   //   },
   // }
     console.log("liked");
-    // const response = await axios.post(`http://localhost:4000/tweet/like/${id}`)
+    // const response = await axios.post(`https://twitter-backend-rcbd.onrender.com/tweet/like/${id}`)
     // setLikesCount(response.data.likesCount);
   }
 
   useEffect(()=>{
     const getImage = async()=>{
       console.log("getting image");
-      const response = await axios.get(`http://localhost:4000/tweet/getImage/${tweetid}`,{responseType:"blob"});
+      const response = await axios.get(`https://twitter-backend-rcbd.onrender.com/tweet/getImage/${tweetid}`,{responseType:"blob"});
       const imageData = await response.data;
       const imageUrl = URL.createObjectURL(imageData);      
       setImageSrc(imageUrl);
@@ -50,7 +50,7 @@ export default function TweetComponent(tweetContent: any) {
       if (word.startsWith("#")) {
         const word2 = word.substring(1)
         const link = document.createElement('a')
-        link.href = `http://localhost:4000/tweet/${word2}`
+        link.href = `https://twitter-backend-rcbd.onrender.com/tweet/${word2}`
         link.textContent = word;
         link.setAttribute("style","color:#1d9bf0")
         span.appendChild(link)
@@ -58,7 +58,7 @@ export default function TweetComponent(tweetContent: any) {
         
         const word2 = word.substring(1)
         const link = document.createElement('a')
-        link.href = `http://localhost:4000/tweet/${word2}`
+        link.href = `https://twitter-backend-rcbd.onrender.com/tweet/${word2}`
         link.textContent = word;
         link.setAttribute("style","color:#1d9bf0")
         span.appendChild(link)
@@ -119,7 +119,7 @@ export default function TweetComponent(tweetContent: any) {
             <AiOutlineRetweet className="my-1 text-[20px]" />
             <p className="text-[13px] px-2 pt-1">340</p>
           </button>
-          <a href={`http://localhost:3000/comments/${tweetid}`} className="flex w-24 text-slate-500 hover:text-blue-600">
+          <a href={`https://twitter-dharshan.vercel.app/comments/${tweetid}`} className="flex w-24 text-slate-500 hover:text-blue-600">
             <FaRegComment className="my-1" />
             <p className="text-[13px] px-2 pt-1">340</p>
           </a>
